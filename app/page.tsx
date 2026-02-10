@@ -22,13 +22,11 @@ export default async function HomePage() {
     id: i + 1,
     title: 'Lorem ipsum dolor sit amet,',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>',
     slug: `post-${i + 1}`,
     date: '2025-02-10',
-    modified: '2025-02-10',
     author: {
-      id: 1,
       name: 'Matthew Ayeola',
-      slug: 'matthew-ayeola',
       avatar: 'https://i.pravatar.cc/150?img=' + ((i % 70) + 1),
     },
     categories: [
@@ -38,8 +36,9 @@ export default async function HomePage() {
     featuredImage: {
       url: `https://picsum.photos/seed/${i + 1}/800/600`,
       alt: 'Featured image',
+      width: 800,
+      height: 600,
     },
-    featured_media_url: `https://picsum.photos/seed/${i + 1}/800/600`,
   }));
 
   const posts = dummyPosts;
@@ -50,7 +49,7 @@ export default async function HomePage() {
     title: posts[0].title,
     excerpt: posts[0].excerpt,
     slug: posts[0].slug,
-    featured_media_url: posts[0].featured_media_url,
+    featured_media_url: posts[0].featuredImage?.url || '',
   } : undefined;
 
   return (

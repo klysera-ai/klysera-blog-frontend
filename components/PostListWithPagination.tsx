@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PostGrid from '@/components/PostGrid';
 import type { Post } from '@/types/wordpress';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
@@ -27,7 +27,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
     // Filter by author
     if (selectedAuthors.length > 0) {
       filtered = filtered.filter(post => 
-        selectedAuthors.includes(post.author.slug)
+        selectedAuthors.includes('matthew-ayeola') && post.author.name === 'Matthew Ayeola'
       );
     }
 
@@ -54,7 +54,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   };
 
   // Reset visible count when search changes
-  useMemo(() => {
+  useEffect(() => {
     setVisibleCount(10);
   }, [searchQuery, selectedCategories, selectedAuthors]);
 

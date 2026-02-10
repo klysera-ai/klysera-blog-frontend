@@ -1,0 +1,28 @@
+name: klyseria
+region: nyc
+
+services:
+  - name: web
+    github:
+      repo: gblessylva/Klyseria
+      branch: main
+      deploy_on_push: true
+    
+    dockerfile_path: Dockerfile
+    
+    http_port: 3000
+    
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: WORDPRESS_API_URL
+        value: ${WORDPRESS_API_URL}
+        type: SECRET
+    
+    routes:
+      - path: /

@@ -81,7 +81,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <article className="bg-white dark:bg-black min-h-screen">
       {/* Featured Image Hero */}
       {post.featuredImage && (
-        <div className="relative w-full h-[500px] md:h-[600px]">
+        <div className="relative w-full h-[300px] md:h-[600px]">
           <Image
             src={post.featuredImage.url}
             alt={post.featuredImage.alt}
@@ -94,7 +94,7 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
 
       {/* Content Container */}
-      <div className="container mx-auto px-4 -mt-32 relative z-10">
+      <div className="container mx-auto px-4 -mt-16 md:-mt-32 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <header className="mb-12">
@@ -102,13 +102,12 @@ export default async function PostPage({ params }: PostPageProps) {
             <nav className="mb-6">
               <Link
                 href="/chapter"
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 md:gap-2 text-gray-600 hover:text-gray-900 dark:text-white/80 dark:hover:text-white transition-colors text-sm md:text-base"
                 style={{
                   fontFamily: 'General Sans, sans-serif',
-                  fontSize: '14px',
                 }}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 Back to Chapter
@@ -135,10 +134,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
             {/* Title */}
             <h1
-              className="text-white mb-6"
+              className="text-gray-900 dark:text-white mb-6 text-3xl md:text-5xl"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '48px',
                 lineHeight: '1.2',
                 fontWeight: '600',
               }}
@@ -147,7 +145,7 @@ export default async function PostPage({ params }: PostPageProps) {
             </h1>
 
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-white/70 mb-8">
+            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-white/70 mb-8">
               <time
                 dateTime={post.date}
                 style={{

@@ -16,12 +16,11 @@ export default function InnerPageHero({ title, description }: InnerPageHeroProps
           {/* Title Section */}
           <div>
             <h1 
-              className="text-[#001F3F] dark:text-white"
+              className="text-[#001F3F] dark:text-white text-5xl md:text-[100px]"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontWeight: '400',
-                fontSize: '100px',
-                lineHeight: '144px',
+                lineHeight: '1.2',
               }}
             >
               {title}

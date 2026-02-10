@@ -127,7 +127,7 @@ export default function PostCard({ post, viewMode = 'grid' }: PostCardProps) {
         </Link>
       )}
 
-      <div style={{ paddingTop: '60px', paddingLeft: '50px', paddingRight: '70px', paddingBottom: '50px' }}>
+      <div>
         {/* Title/Text */}
         <Link href={postUrl}>
           <p 

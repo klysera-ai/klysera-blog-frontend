@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -33,9 +34,11 @@ export default function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-3 mb-4">
               {mounted && (
-                <img
+                <Image
                   src={theme === 'dark' ? '/images/logo/dark.png' : '/images/logo/light.png'}
                   alt="Klysera Logo"
+                  width={120}
+                  height={32}
                   className="h-8 w-auto"
                 />
               )}
@@ -91,14 +94,14 @@ export default function Footer() {
             <h3 className="text-xl font-normal text-gray-900 dark:text-white mb-6">
               Subscribe to our Newsletter
             </h3>
-            <form onSubmit={handleSubscribe} className="flex gap-0">
+            <form onSubmit={handleSubscribe} className="flex flex-col md:flex-row gap-3 md:gap-0">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
                 required
-                className="flex-1 px-4 py-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white dark:bg-black text-gray-900 dark:text-white"
+                className="flex-1 px-4 py-3 border md:rounded-l-lg rounded-lg md:rounded-r-none focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white dark:bg-black text-gray-900 dark:text-white"
                 style={{ 
                   borderColor: 'var(--footer-border-color, #d1d5db)',
                   color: 'var(--footer-input-color, currentColor)'
@@ -106,7 +109,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="px-8 py-3 bg-blue-600 dark:bg-white text-white dark:text-gray-900 rounded-r-lg hover:bg-blue-700 dark:hover:bg-gray-100 transition-colors font-medium"
+                className="px-8 py-3 bg-blue-600 dark:bg-white text-white dark:text-gray-900 rounded-lg md:rounded-r-lg md:rounded-l-none hover:bg-blue-700 dark:hover:bg-gray-100 transition-colors font-medium w-full md:w-auto"
               >
                 Subscribe
               </button>

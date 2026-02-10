@@ -27,7 +27,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
     // Filter by author
     if (selectedAuthors.length > 0) {
       filtered = filtered.filter(post => 
-        selectedAuthors.includes(post.author.slug)
+        selectedAuthors.includes('matthew-ayeola') && post.author.name === 'Matthew Ayeola'
       );
     }
 

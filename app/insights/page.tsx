@@ -15,13 +15,11 @@ export default function InsightsPage() {
     id: i + 1,
     title: 'Lorem ipsum dolor sit amet,',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>',
     slug: `insight-${i + 1}`,
     date: '2025-02-10',
-    modified: '2025-02-10',
     author: {
-      id: 1,
       name: 'Matthew Ayeola',
-      slug: 'matthew-ayeola',
       avatar: 'https://i.pravatar.cc/150?img=' + ((i % 70) + 1),
     },
     categories: [
@@ -31,8 +29,9 @@ export default function InsightsPage() {
     featuredImage: {
       url: `https://picsum.photos/seed/insight-${i + 1}/800/600`,
       alt: 'Featured image',
+      width: 800,
+      height: 600,
     },
-    featured_media_url: `https://picsum.photos/seed/insight-${i + 1}/800/600`,
   }));
 
   return (

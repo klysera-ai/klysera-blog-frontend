@@ -23,14 +23,15 @@ export default function HeroSection({ post }: HeroSectionProps) {
     slug: 'dummy-post',
     featured_media_url: '/hero-placeholder.jpg',
   };
-
+  
+  const backgroundImage = heroPost.featured_media_url || '/images/sections/hero-image.png';
   return (
     <div className="relative w-full h-[617px] overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/images/sections/hero-image.png')`,
+          backgroundImage: `url('${backgroundImage}')`,
         }}
       />
       

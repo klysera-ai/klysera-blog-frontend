@@ -64,5 +64,9 @@ export function debounce<T extends (...args: any[]) => any>(
 export function getPostUrl(slug: string, categorySlug?: string): string {
   // Default to insights if no category
   const category = categorySlug || 'insights';
-  return `/${category}/${slug}`;
+  
+  // Map "chapters" (plural) to "chapter" (singular) for URL routing
+  const routeCategory = category === 'chapters' ? 'chapter' : category;
+  
+  return `/${routeCategory}/${slug}`;
 }

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress';
+import { getPostBySlug, getPostSlugsByCategorySlug } from '@/lib/wordpress';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import ShareButtons from '@/components/ShareButtons';
 import { getDummyPostBySlug } from '@/lib/dummy-posts';
@@ -13,8 +13,10 @@ interface PostPageProps {
   }>;
 }
 
+export const dynamicParams = true; // Allow dynamic post slugs not generated at build time
+
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
+  const slugs = await getPostSlugsByCategorySlug('research');
   return slugs.map((slug) => ({
     slug,
   }));
@@ -23,7 +25,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   let post = await getPostBySlug(slug);
-  
+
   // Fallback to dummy posts if WordPress API returns null
   if (!post) {
     post = getDummyPostBySlug(slug);
@@ -46,13 +48,13 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       authors: [post.author.name],
       images: post.featuredImage
         ? [
-            {
-              url: post.featuredImage.url,
-              width: post.featuredImage.width,
-              height: post.featuredImage.height,
-              alt: post.featuredImage.alt,
-            },
-          ]
+          {
+            url: post.featuredImage.url,
+            width: post.featuredImage.width,
+            height: post.featuredImage.height,
+            alt: post.featuredImage.alt,
+          },
+        ]
         : [],
     },
     twitter: {
@@ -67,7 +69,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   let post = await getPostBySlug(slug);
-  
+
   // Fallback to dummy posts if WordPress API returns null
   if (!post) {
     post = getDummyPostBySlug(slug);
@@ -133,13 +135,11 @@ export default async function PostPage({ params }: PostPageProps) {
             )}
 
             {/* Title */}
-            <h1
-              className="text-gray-900 dark:text-white mb-6 text-3xl md:text-5xl"
-              style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
-                lineHeight: '1.2',
-                fontWeight: '600',
-              }}
+            <h1 className="text-gray-900 dark:text-white mb-6 mt-8 md:mt-16 text-3xl md:text-5xl" style={{
+              fontFamily: 'Acid Grotesk, sans-serif', lineHeight: '1.2', fontWeight: '600',
+            }}
+
+
             >
               {post.title}
             </h1>
@@ -200,13 +200,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Main Content */}
           <div className="bg-white dark:bg-gray-900 rounded-lg p-8 md:p-12 mb-12">
             <div
-              className="prose prose-lg dark:prose-invert max-w-none"
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontSize: '18px',
-                lineHeight: '1.8',
-                color: 'inherit',
-              }}
+              className="post-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>

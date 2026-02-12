@@ -1,4 +1,4 @@
-import { getPosts } from '@/lib/wordpress';
+import { getPostsFromMultipleCategories } from '@/lib/wordpress';
 import HeroSection from '@/components/HeroSection';
 import SearchToolbar from '@/components/SearchToolbar';
 import { ViewModeProvider } from '@/contexts/ViewModeContext';
@@ -11,7 +11,13 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  // Generate 30 dummy posts
+  // Fetch posts from all three categories
+  const postsResponse = await getPostsFromMultipleCategories(
+    ['insights', 'research', 'white-paper'],
+    { perPage: 100 }
+  );
+
+  // Fallback dummy posts if WordPress API is not available
   const categories = [
     { id: 1, name: 'Insights', slug: 'insights' },
     { id: 2, name: 'Research', slug: 'research' },
@@ -41,13 +47,24 @@ export default async function HomePage() {
     },
   }));
 
-  const posts = dummyPosts;
+  const posts = postsResponse.data.length > 0 ? postsResponse.data : dummyPosts;
 
+  const stripHtml = (html: string) => {
+    if (typeof window === 'undefined') {
+      // Server-side: Use a simple regex to strip HTML tags
+      return html.replace(/<[^>]*>?/gm, '');
+    } else {
+      // Client-side: Use DOMParser to parse and extract text content
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      return doc.body.textContent || '';
+    }
+  };
   // Use the first post as the featured hero post
   const featuredPost = posts.length > 0 ? {
     id: posts[0].id,
     title: posts[0].title,
-    excerpt: posts[0].excerpt,
+    excerpt: stripHtml(posts[0].excerpt),
     slug: posts[0].slug,
     featured_media_url: posts[0].featuredImage?.url || '',
   } : undefined;
@@ -59,7 +76,7 @@ export default async function HomePage() {
         <HeroSection post={featuredPost} />
       
       {/* Search Toolbar */}
-      <SearchToolbar />
+      <SearchToolbar posts={posts} />
       
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">

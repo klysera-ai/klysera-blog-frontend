@@ -1,6 +1,6 @@
 import type { WPPost, WPAPIResponse, Post } from '@/types/wordpress';
 
-const API_URL = process.env.WORDPRESS_API_URL || 'https://your-wordpress-site.com/wp-json/wp/v2';
+const API_URL = process.env.WORDPRESS_API_URL || 'https://wordpress.klysera.ai/wp-json/wp/v2';
 
 // Check if WordPress API is configured
 const isWordPressConfigured = API_URL && !API_URL.includes('your-wordpress-site.com');
@@ -130,6 +130,37 @@ export async function getAllPostSlugs(): Promise<string[]> {
 }
 
 /**
+ * Fetch post slugs by category slug
+ */
+export async function getPostSlugsByCategorySlug(categorySlug: string): Promise<string[]> {
+  if (!isWordPressConfigured) {
+    return [];
+  }
+
+  const category = await getCategoryBySlug(categorySlug);
+  
+  if (!category) {
+    return [];
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/posts?categories=${category.id}&per_page=100&_fields=slug`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch post slugs: ${response.statusText}`);
+    }
+
+    const data: Array<{ slug: string }> = await response.json();
+    return data.map((post) => post.slug);
+  } catch (error) {
+    console.error('Error fetching post slugs:', error);
+    return [];
+  }
+}
+
+/**
  * Transform WordPress post to simplified format
  */
 function transformPost(post: WPPost): Post {
@@ -169,4 +200,103 @@ function transformPost(post: WPPost): Post {
         slug: tag.slug,
       })) || [],
   };
+}
+
+/**
+ * Fetch category by slug
+ */
+export async function getCategoryBySlug(slug: string): Promise<{ id: number; name: string; description: string; slug: string } | null> {
+  if (!isWordPressConfigured) {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/categories?slug=${slug}`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch category: ${response.statusText}`);
+    }
+
+    const data: Array<{ id: number; name: string; description: string; slug: string }> = await response.json();
+
+    if (data.length === 0) {
+      return null;
+    }
+
+    return {
+      id: data[0].id,
+      name: data[0].name,
+      description: data[0].description,
+      slug: data[0].slug,
+    };
+  } catch (error) {
+    console.error('Error fetching category:', error);
+    return null;
+  }
+}
+
+/**
+ * Fetch posts by category slug
+ */
+export async function getPostsByCategorySlug(categorySlug: string, params?: {
+  page?: number;
+  perPage?: number;
+}): Promise<WPAPIResponse<Post[]>> {
+  // First get the category ID
+  const category = await getCategoryBySlug(categorySlug);
+  
+  if (!category) {
+    return {
+      data: [],
+      total: 0,
+      totalPages: 0,
+    };
+  }
+
+  // Then fetch posts with that category ID
+  return getPosts({
+    ...params,
+    categories: [category.id],
+  });
+}
+
+/**
+ * Fetch posts from multiple category slugs
+ */
+export async function getPostsFromMultipleCategories(categorySlugs: string[], params?: {
+  page?: number;
+  perPage?: number;
+}): Promise<WPAPIResponse<Post[]>> {
+  if (!isWordPressConfigured) {
+    return {
+      data: [],
+      total: 0,
+      totalPages: 0,
+    };
+  }
+
+  // Fetch all categories
+  const categoryPromises = categorySlugs.map(slug => getCategoryBySlug(slug));
+  const categories = await Promise.all(categoryPromises);
+  
+  // Filter out null categories and get IDs
+  const categoryIds = categories
+    .filter((cat): cat is NonNullable<typeof cat> => cat !== null)
+    .map(cat => cat.id);
+
+  if (categoryIds.length === 0) {
+    return {
+      data: [],
+      total: 0,
+      totalPages: 0,
+    };
+  }
+
+  // Fetch posts with all category IDs
+  return getPosts({
+    ...params,
+    categories: categoryIds,
+  });
 }

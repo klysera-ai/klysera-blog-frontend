@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/wordpress';
+import { getPostBySlug, getPostSlugsByCategorySlug } from '@/lib/wordpress';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import ShareButtons from '@/components/ShareButtons';
 import { getDummyPostBySlug } from '@/lib/dummy-posts';
@@ -13,8 +13,10 @@ interface PostPageProps {
   }>;
 }
 
+export const dynamicParams = true; // Allow dynamic post slugs not generated at build time
+
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
+  const slugs = await getPostSlugsByCategorySlug('white-paper');
   return slugs.map((slug) => ({
     slug,
   }));
@@ -200,13 +202,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Main Content */}
           <div className="bg-white dark:bg-gray-900 rounded-lg p-8 md:p-12 mb-12">
             <div
-              className="prose prose-lg dark:prose-invert max-w-none"
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontSize: '18px',
-                lineHeight: '1.8',
-                color: 'inherit',
-              }}
+              className="post-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>

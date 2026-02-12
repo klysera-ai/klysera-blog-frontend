@@ -3,14 +3,26 @@ import SearchToolbar from '@/components/SearchToolbar';
 import { ViewModeProvider } from '@/contexts/ViewModeContext';
 import { SearchFilterProvider } from '@/contexts/SearchFilterContext';
 import PostListWithPagination from '@/components/PostListWithPagination';
+import { getCategoryBySlug, getPostsByCategorySlug } from '@/lib/wordpress';
+import { stripHtml } from '@/lib/utils';
 
 export const metadata = {
   title: 'Insights',
   description: 'Discover insights, analysis, and perspectives on key topics',
 };
 
-export default function InsightsPage() {
-  // Generate dummy posts for Insights
+export default async function InsightsPage() {
+  // Fetch category data
+  const category = await getCategoryBySlug('insights');
+    console.log(category, "found category");  
+  
+  // Fetch posts for Insights category
+  const postsResponse = await getPostsByCategorySlug('insights', {
+    perPage: 100, // Fetch all posts for client-side filtering
+  });
+    console.log(postsResponse, "found posts");
+    
+  // Fallback dummy posts if WordPress API is not available
   const dummyPosts = Array.from({ length: 30 }, (_, i) => ({
     id: i + 1,
     title: 'Lorem ipsum dolor sit amet,',
@@ -34,19 +46,26 @@ export default function InsightsPage() {
     },
   }));
 
+  const posts = postsResponse.data.length > 0 ? postsResponse.data : dummyPosts;
+  console.log(postsResponse , "found posts");
+  // Get description from category or use default
+  const description = category?.description 
+    ? stripHtml(category.description) 
+    : 'Discover insights, analysis, and perspectives on key topics';
+
   return (
     <SearchFilterProvider>
       <ViewModeProvider>
         <InnerPageHero 
-        title="Insights"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      />
+          title="Insights"
+          description={description}
+        />
       
-      <SearchToolbar />
+        <SearchToolbar posts={posts} />
       
-      <div className="container mx-auto px-4 py-12">
-        <PostListWithPagination allPosts={dummyPosts} />
-      </div>
+        <div className="container mx-auto px-4 py-12">
+          <PostListWithPagination allPosts={posts} />
+        </div>
       </ViewModeProvider>
     </SearchFilterProvider>
   );

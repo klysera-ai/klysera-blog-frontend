@@ -4,12 +4,22 @@ import { useState, useEffect } from 'react';
 import { useViewMode } from '@/contexts/ViewModeContext';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
 import FilterModal from './FilterModal';
+import type { Post } from '@/types/wordpress';
 
-export default function SearchToolbar() {
+interface SearchToolbarProps {
+  posts?: Post[];
+}
+
+export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   const [localSearch, setLocalSearch] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, selectedAuthors, setSelectedAuthors } = useSearchFilter();
   const { viewMode, toggleViewMode, mounted } = useViewMode();
+
+  // Extract unique authors from posts
+  const uniqueAuthors = Array.from(
+    new Map(posts.map(post => [post.author.name, post.author])).values()
+  );
 
   // Debounce search query
   useEffect(() => {
@@ -173,77 +183,6 @@ export default function SearchToolbar() {
 
           {/* Desktop Layout - Original horizontal layout */}
           <div className="hidden md:flex items-center justify-between gap-4">
-            {/* Active Filters Display */}
-            {activeFiltersCount > 0 && (
-              <div className="absolute top-full left-0 right-0 px-4 py-3 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-                <div className="container mx-auto flex items-center gap-2 flex-wrap">
-                  <span 
-                    className="text-gray-600 dark:text-gray-400"
-                    style={{
-                      fontFamily: 'General Sans, sans-serif',
-                      fontSize: '14px',
-                    }}
-                  >
-                    Active filters:
-                  </span>
-                  {selectedCategories.map((categoryId) => (
-                    <span
-                      key={`cat-${categoryId}`}
-                      className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
-                      style={{
-                        fontFamily: 'General Sans, sans-serif',
-                        fontSize: '14px',
-                      }}
-                    >
-                      {categoryId === 'insights' && 'Insights'}
-                      {categoryId === 'research' && 'Research'}
-                      {categoryId === 'white-paper' && 'White paper'}
-                      <button
-                        onClick={() => setSelectedCategories(selectedCategories.filter(id => id !== categoryId))}
-                        className="hover:text-blue-900 dark:hover:text-blue-100"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </span>
-                  ))}
-                  {selectedAuthors.map((authorId) => (
-                    <span
-                      key={`author-${authorId}`}
-                      className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full"
-                      style={{
-                        fontFamily: 'General Sans, sans-serif',
-                        fontSize: '14px',
-                      }}
-                    >
-                      {authorId === 'matthew-ayeola' && 'Matthew Ayeola'}
-                      <button
-                        onClick={() => setSelectedAuthors(selectedAuthors.filter(id => id !== authorId))}
-                        className="hover:text-green-900 dark:hover:text-green-100"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </span>
-                  ))}
-                  <button
-                    onClick={() => {
-                      setSelectedCategories([]);
-                      setSelectedAuthors([]);
-                    }}
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
-                    style={{
-                      fontFamily: 'General Sans, sans-serif',
-                      fontSize: '14px',
-                    }}
-                  >
-                    Clear all
-                  </button>
-                </div>
-              </div>
-            )}
           {/* Search Input */}
           <div className="flex-1 max-w-md relative">
             <svg 
@@ -376,7 +315,83 @@ export default function SearchToolbar() {
       </div>
       </div>
 
-      <FilterModal isOpen={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
+      {/* Active Filters Display */}
+      {activeFiltersCount > 0 && (
+        <div className="w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+          <div className="container mx-auto px-4 py-3 flex items-center gap-2 flex-wrap">
+            <span 
+              className="text-gray-600 dark:text-gray-400"
+              style={{
+                fontFamily: 'General Sans, sans-serif',
+                fontSize: '14px',
+              }}
+            >
+              Active filters:
+            </span>
+            {selectedCategories.map((categoryId) => (
+              <span
+                key={`cat-${categoryId}`}
+                className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full"
+                style={{
+                  fontFamily: 'General Sans, sans-serif',
+                  fontSize: '14px',
+                }}
+              >
+                {categoryId === 'insights' && 'Insights'}
+                {categoryId === 'research' && 'Research'}
+                {categoryId === 'white-paper' && 'White paper'}
+                <button
+                  onClick={() => setSelectedCategories(selectedCategories.filter(id => id !== categoryId))}
+                  className="hover:text-blue-900 dark:hover:text-blue-100"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            ))}
+            {selectedAuthors.map((authorName) => (
+              <span
+                key={`author-${authorName}`}
+                className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full"
+                style={{
+                  fontFamily: 'General Sans, sans-serif',
+                  fontSize: '14px',
+                }}
+              >
+                {authorName}
+                <button
+                  onClick={() => setSelectedAuthors(selectedAuthors.filter(name => name !== authorName))}
+                  className="hover:text-green-900 dark:hover:text-green-100"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            ))}
+            <button
+              onClick={() => {
+                setSelectedCategories([]);
+                setSelectedAuthors([]);
+              }}
+              className="text-blue-600 dark:text-blue-400 hover:underline"
+              style={{
+                fontFamily: 'General Sans, sans-serif',
+                fontSize: '14px',
+              }}
+            >
+              Clear all
+            </button>
+          </div>
+        </div>
+      )}
+
+      <FilterModal 
+        isOpen={isFilterOpen} 
+        onClose={() => setIsFilterOpen(false)} 
+        authors={uniqueAuthors}
+      />
 </>
   );
 }

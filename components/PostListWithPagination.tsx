@@ -11,7 +11,7 @@ interface PostListWithPaginationProps {
 
 export default function PostListWithPagination({ allPosts }: PostListWithPaginationProps) {
   const [visibleCount, setVisibleCount] = useState(10);
-  const { searchQuery, selectedCategories, selectedAuthors } = useSearchFilter();
+  const { searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange } = useSearchFilter();
 
   // Filter posts based on search query, categories, and authors
   const filteredPosts = useMemo(() => {
@@ -27,7 +27,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
     // Filter by author
     if (selectedAuthors.length > 0) {
       filtered = filtered.filter(post => 
-        selectedAuthors.includes('matthew-ayeola') && post.author.name === 'Matthew Ayeola'
+        selectedAuthors.includes(post.author.name)
       );
     }
 
@@ -43,8 +43,22 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
       });
     }
 
+    // Sort by date
+    if (dateSort === 'latest') {
+      filtered = [...filtered].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    } else if (dateSort === 'oldest') {
+      filtered = [...filtered].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    } else if (dateSort === 'custom' && customDateRange.start && customDateRange.end) {
+      const startDate = new Date(customDateRange.start);
+      const endDate = new Date(customDateRange.end);
+      filtered = filtered.filter(post => {
+        const postDate = new Date(post.date);
+        return postDate >= startDate && postDate <= endDate;
+      });
+    }
+
     return filtered;
-  }, [allPosts, searchQuery, selectedCategories, selectedAuthors]);
+  }, [allPosts, searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange]);
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredPosts.length;
@@ -56,7 +70,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   // Reset visible count when search changes
   useMemo(() => {
     setVisibleCount(10);
-  }, [searchQuery, selectedCategories, selectedAuthors]);
+  }, [searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange]);
 
   if (filteredPosts.length === 0) {
     return (

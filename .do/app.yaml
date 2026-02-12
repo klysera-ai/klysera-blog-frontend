@@ -21,8 +21,7 @@ services:
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
       - key: WORDPRESS_API_URL
-        value: ${WORDPRESS_API_URL}
-        type: SECRET
+        value: https://wordpress.klysera.ai/wp-json/wp/v2
     
     routes:
       - path: /

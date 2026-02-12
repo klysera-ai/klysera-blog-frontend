@@ -1,14 +1,26 @@
-'use client';
-
-import { useState } from 'react';
 import InnerPageHero from '@/components/InnerPageHero';
 import SearchToolbar from '@/components/SearchToolbar';
 import { ViewModeProvider } from '@/contexts/ViewModeContext';
 import { SearchFilterProvider } from '@/contexts/SearchFilterContext';
 import PostListWithPagination from '@/components/PostListWithPagination';
+import { getCategoryBySlug, getPostsByCategorySlug } from '@/lib/wordpress';
+import { stripHtml } from '@/lib/utils';
 
-export default function WhitePaperPage() {
-  // Generate dummy posts for White Paper
+export const metadata = {
+  title: 'White Paper',
+  description: 'Comprehensive white papers and detailed reports',
+};
+
+export default async function WhitePaperPage() {
+  // Fetch category data
+  const category = await getCategoryBySlug('white-paper');
+  
+  // Fetch posts for White Paper category
+  const postsResponse = await getPostsByCategorySlug('white-paper', {
+    perPage: 100, // Fetch all posts for client-side filtering
+  });
+
+  // Fallback dummy posts if WordPress API is not available
   const dummyPosts = Array.from({ length: 30 }, (_, i) => ({
     id: i + 1,
     title: 'Lorem ipsum dolor sit amet,',
@@ -32,19 +44,22 @@ export default function WhitePaperPage() {
     },
   }));
 
+  const posts = postsResponse.data.length > 0 ? postsResponse.data : dummyPosts;
+  
+  // Get description from category or use default
+  const description = category?.description 
+    ? stripHtml(category.description) 
+    : 'Comprehensive white papers and detailed reports';
+
   return (
     <SearchFilterProvider>
       <ViewModeProvider>
         <InnerPageHero
-        title="White paper"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      />
+          title="White paper"
+          description={description}
+        />
       
-      <SearchToolbar />
-      
-      <div className="container mx-auto px-4 py-12">
-        <PostListWithPagination allPosts={dummyPosts} />
-      </div>
+        <SearchToolbar posts={posts} />
       </ViewModeProvider>
     </SearchFilterProvider>
   );

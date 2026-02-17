@@ -10,7 +10,7 @@ export default function ViewSwitcher() {
   return (
     <button
       onClick={toggleViewMode}
-      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+      className="flex items-center gap-2 px-4 py-2 rounded-none bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
       aria-label={`Switch to ${viewMode === 'grid' ? 'list' : 'grid'} view`}
     >
       {viewMode === 'grid' ? (

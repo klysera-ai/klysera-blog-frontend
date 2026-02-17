@@ -122,7 +122,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.categories.map((category) => (
                   <span
                     key={category.id}
-                    className="px-4 py-1.5 bg-blue-600 text-white rounded-full"
+                    className="px-4 py-1.5 bg-blue-600 text-white rounded-none"
                     style={{
                       fontFamily: 'Acid Grotesk, sans-serif',
                       fontSize: '14px',
@@ -169,9 +169,9 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
 
             {/* Author */}
-            <div className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 rounded-lg">
+            <div className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 rounded-none">
               {post.author.avatar && (
-                <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                <div className="relative w-16 h-16 rounded-none overflow-hidden flex-shrink-0">
                   <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
                 </div>
               )}
@@ -200,7 +200,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </header>
 
           {/* Main Content */}
-          <div className="bg-white dark:bg-gray-900 rounded-lg p-8 md:p-12 mb-12">
+          <div className="bg-white dark:bg-gray-900 rounded-none p-8 md:p-12 mb-12">
             <div
               className="post-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
@@ -209,7 +209,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
           {/* Tags */}
           {post.tags.length > 0 && (
-            <div className="bg-white dark:bg-gray-900 rounded-lg p-8 mb-12">
+            <div className="bg-white dark:bg-gray-900 rounded-none p-8 mb-12">
               <h3
                 className="text-gray-900 dark:text-white mb-4"
                 style={{
@@ -224,7 +224,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag.id}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg"
+                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-none"
                     style={{
                       fontFamily: 'Acid Grotesk, sans-serif',
                       fontSize: '14px',
@@ -244,7 +244,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="text-center pb-12">
             <Link
               href="/insights"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-none transition-colors"
               style={{
                 fontFamily: 'General Sans, sans-serif',
                 fontSize: '16px',

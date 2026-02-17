@@ -6,106 +6,96 @@ import { formatDate, stripHtml, truncate, getPostUrl } from '@/lib/utils';
 interface PostCardProps {
   post: Post;
   viewMode?: 'grid' | 'list';
+  hoveredPostId?: number | null;
+  onHover?: (id: number | null) => void;
+  theme?: string;
 }
 
-export default function PostCard({ post, viewMode = 'grid' }: PostCardProps) {
+export default function PostCard({ 
+  post, 
+  viewMode = 'grid', 
+  hoveredPostId, 
+  onHover,
+  theme 
+}: PostCardProps) {
   const excerpt = stripHtml(post.excerpt);
+
+  // Calculate colors for list view based on hover state
+  const getTitleColor = () => {
+    if (viewMode !== 'list' || !onHover) {
+      return theme === 'dark' ? '#FFFFFF' : '#000000';
+    }
+
+    const isThisHovered = hoveredPostId === post.id;
+    const isAnyHovered = hoveredPostId !== null;
+
+    if (theme === 'dark') {
+      if (isThisHovered) return '#FFFFFF';
+      if (isAnyHovered) return '#FFFFFF63';
+      return '#FFFFFF';
+    } else {
+      if (isThisHovered) return '#000000';
+      if (isAnyHovered) return '#8E8E93';
+      return '#000000';
+    }
+  };
 
   if (viewMode === 'list') {
     const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
     return (
-      <article className="flex flex-col md:flex-row gap-6 bg-white dark:bg-black rounded-lg hover:shadow-lg transition-shadow">
-        {post.featuredImage && (
-          <Link href={postUrl} className="md:w-1/3 flex-shrink-0">
-            <div className="relative h-64 md:h-full w-full rounded-lg overflow-hidden">
-              <Image
-                src={post.featuredImage.url}
-                alt={post.featuredImage.alt}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </Link>
-        )}
-
-        <div className="flex-1 flex flex-col" style={{ paddingTop: '15px', paddingRight: '15px', paddingBottom: '15px' }}>
-          {/* Category Label */}
-          {post.categories.length > 0 && (
-            <div style={{ marginBottom: '20px' }}>
-              <span 
-                className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white rounded-md"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '16px',
-                }}
-              >
-                {post.categories[0].name}
-              </span>
-            </div>
-          )}
+      <article 
+        className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800"
+        style={{ paddingTop: '20px', paddingBottom: '20px' }}
+        onMouseEnter={() => onHover?.(post.id)}
+        onMouseLeave={() => onHover?.(null)}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_200px_150px] gap-4 md:gap-8">
 
           {/* Title */}
-          <Link href={postUrl}>
+          <Link href={postUrl} className="flex-1">
             <h2 
-              className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="transition-colors"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '16px',
+                fontSize: '26px',
                 fontWeight: '400',
-                marginBottom: '15px',
-                lineHeight: '1.4',
+                lineHeight: '1.3',
+                color: getTitleColor(),
               }}
             >
               {post.title}
             </h2>
           </Link>
 
-          {/* Excerpt */}
-          <p 
-            className="text-gray-600 dark:text-gray-400 flex-1"
+          {/* Category */}
+          {post.categories.length > 0 && (
+            <span 
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '14px',
+                fontWeight: '400',
+                whiteSpace: 'nowrap',
+                color: getTitleColor(),
+              }}
+            >
+              {post.categories[0].name}
+            </span>
+          )}
+
+          {/* Date */}
+          <time 
+            dateTime={post.date}
             style={{
-              fontFamily: 'General Sans, sans-serif',
-              fontSize: '16px',
-              lineHeight: '1.6',
-              marginBottom: '20px',
+              fontFamily: 'Acid Grotesk, sans-serif',
+              fontSize: '14px',
+              fontWeight: '400',
+              whiteSpace: 'nowrap',
+              textAlign:'left',
+              color: getTitleColor(),
             }}
           >
-            {truncate(excerpt, 200)}
-          </p>
-
-          {/* Author Section */}
-          <div className="flex items-center gap-3">
-            {post.author.avatar && (
-              <div 
-                className="relative rounded-full overflow-hidden flex-shrink-0" 
-                style={{ width: '40px', height: '40px' }}
-              >
-                <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-              </div>
-            )}
-            <div>
-              <p 
-                className="text-gray-900 dark:text-white font-medium"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                  marginBottom: '2px',
-                }}
-              >
-                {post.author.name}
-              </p>
-              <time 
-                dateTime={post.date}
-                className="text-gray-500 dark:text-gray-400"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                }}
-              >
-                {formatDate(post.date)}
-              </time>
-            </div>
-          </div>
+            {formatDate(post.date)}
+          </time>
         </div>
       </article>
     );
@@ -113,22 +103,22 @@ export default function PostCard({ post, viewMode = 'grid' }: PostCardProps) {
 
   const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
   return (
-    <article className="bg-white dark:bg-black rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+    <article style={{ padding: '15px', borderColor: '#DCE5EF', borderWidth: '1px' }} className="group bg-white dark:bg-black rounded-none overflow-hidden border dark:border-[#A9A9A94D]">
       {post.featuredImage && (
         <Link href={postUrl}>
-          <div className="relative h-64 w-full">
+          <div className="relative h-64 w-full overflow-hidden">
             <Image
               src={post.featuredImage.url}
               alt={post.featuredImage.alt}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
             />
           </div>
         </Link>
       )}
 
       <div style={{ padding: '20px' }}>
-        {/* Title/Text */}
+        {/* Title */}
         <Link href={postUrl}>
           <p 
             className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -144,53 +134,34 @@ export default function PostCard({ post, viewMode = 'grid' }: PostCardProps) {
           </p>
         </Link>
 
-        {/* Author Section & Category */}
+        {/* Category & Date */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {post.author.avatar && (
-              <div 
-                className="relative rounded-full overflow-hidden flex-shrink-0" 
-                style={{ width: '40px', height: '40px' }}
-              >
-                <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-              </div>
-            )}
-            <div>
-              <p 
-                className="text-gray-900 dark:text-white font-medium"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                  marginBottom: '2px',
-                }}
-              >
-                {post.author.name}
-              </p>
-              <time 
-                dateTime={post.date}
-                className="text-gray-500 dark:text-gray-400"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                }}
-              >
-                {formatDate(post.date)}
-              </time>
-            </div>
-          </div>
-
-          {/* Category Label - Bottom Right */}
+          {/* Category Label - Bottom Left */}
           {post.categories.length > 0 && (
             <span 
-              className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white rounded-md"
+              className="text-gray-900 dark:text-white"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '16px',
+                fontSize: '14px',
+                fontWeight: '400',
               }}
             >
               {post.categories[0].name}
             </span>
           )}
+
+          {/* Date - Bottom Right */}
+          <time 
+            dateTime={post.date}
+            className="text-gray-500 dark:text-gray-400"
+            style={{
+              fontFamily: 'Acid Grotesk, sans-serif',
+              fontSize: '14px',
+              fontWeight: '400',
+            }}
+          >
+            {formatDate(post.date)}
+          </time>
         </div>
       </div>
     </article>

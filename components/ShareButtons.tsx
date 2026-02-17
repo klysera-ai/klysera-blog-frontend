@@ -30,7 +30,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-lg p-4 md:p-8 mb-12">
+    <div className="bg-white dark:bg-gray-900 rounded-none p-4 md:p-8 mb-12">
       <h3
         className="text-gray-900 dark:text-white mb-4 text-lg md:text-xl"
         style={{
@@ -43,7 +43,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
       <div className="flex flex-wrap gap-2 md:gap-3">
         <button
           onClick={handleTwitterShare}
-          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors text-sm md:text-base"
+          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-none transition-colors text-sm md:text-base"
           style={{
             fontFamily: 'General Sans, sans-serif',
           }}
@@ -55,7 +55,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         </button>
         <button
           onClick={handleFacebookShare}
-          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors text-sm md:text-base"
+          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-none transition-colors text-sm md:text-base"
           style={{
             fontFamily: 'General Sans, sans-serif',
           }}
@@ -67,7 +67,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         </button>
         <button
           onClick={handleCopyLink}
-          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors text-sm md:text-base"
+          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-none transition-colors text-sm md:text-base"
           style={{
             fontFamily: 'General Sans, sans-serif',
           }}

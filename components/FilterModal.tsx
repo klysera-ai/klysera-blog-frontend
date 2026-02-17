@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
-import Image from 'next/image';
 import type { Post } from '@/types/wordpress';
 
 interface FilterModalProps {
@@ -13,36 +12,22 @@ interface FilterModalProps {
 
 export default function FilterModal({ isOpen, onClose, authors }: FilterModalProps) {
   const { 
-    selectedAuthors, 
-    setSelectedAuthors,
     dateSort,
     setDateSort,
     customDateRange,
     setCustomDateRange
   } = useSearchFilter();
   
-  const [tempAuthors, setTempAuthors] = useState<string[]>(selectedAuthors);
   const [tempDateSort, setTempDateSort] = useState(dateSort);
   const [tempCustomDateRange, setTempCustomDateRange] = useState(customDateRange);
 
-  const handleAuthorToggle = (authorName: string) => {
-    setTempAuthors(prev => 
-      prev.includes(authorName)
-        ? prev.filter(name => name !== authorName)
-        : [...prev, authorName]
-    );
-  };
-
   const handleApply = () => {
-    setSelectedAuthors(tempAuthors);
     setDateSort(tempDateSort);
     setCustomDateRange(tempCustomDateRange);
     onClose();
   };
 
   const handleClear = () => {
-    setTempAuthors([]);
-    setSelectedAuthors([]);
     setTempDateSort('latest');
     setDateSort('latest');
     setTempCustomDateRange({ start: '', end: '' });
@@ -50,7 +35,6 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
   };
 
   const handleCancel = () => {
-    setTempAuthors(selectedAuthors);
     setTempDateSort(dateSort);
     setTempCustomDateRange(customDateRange);
     onClose();
@@ -66,88 +50,47 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
         onClick={handleCancel}
       />
       
-      {/* Modal */}
-      <div className="fixed inset-y-0 right-0 w-full max-w-md bg-white dark:bg-black z-50 overflow-y-auto">
+      {/* Flyout Menu */}
+      <div className="fixed top-40 right-4 md:right-8 w-[calc(100%-2rem)] md:w-96 max-h-[calc(100vh-12rem)] bg-white dark:bg-black border border-gray-200 dark:border-gray-800 z-50 overflow-y-auto shadow-lg">
         <div className="p-6">
           {/* Header */}
-          <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-800">
-            <h2 
-              className="text-gray-900 dark:text-white"
-              style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '28px',
-                fontWeight: '500',
-              }}
-            >
-              Filters
-            </h2>
-          </div>
-
-          {/* Author Filter Section */}
-          <div className="mb-8">
-            <h3 
-              className="text-gray-900 dark:text-white mb-6"
-              style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '20px',
-                fontWeight: '500',
-              }}
-            >
-              Author
-            </h3>
-            <div className="space-y-4">
-              {authors.map((author) => (
-                <label
-                  key={author.name}
-                  className="flex items-center gap-3 cursor-pointer"
-                >
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-200 dark:bg-gray-800">
-                    {author.avatar ? (
-                      <Image 
-                        src={author.avatar} 
-                        alt={author.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm">
-                        {author.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                  </div>
-                  <span 
-                    className="text-gray-900 dark:text-white flex-1"
-                    style={{
-                      fontFamily: 'General Sans, sans-serif',
-                      fontSize: '16px',
-                    }}
-                  >
-                    {author.name}
-                  </span>
-                  <input
-                    type="checkbox"
-                    checked={tempAuthors.includes(author.name)}
-                    onChange={() => handleAuthorToggle(author.name)}
-                    className="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-600"
-                  />
-                </label>
-              ))}
+          <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-between">
+              <h2 
+                className="text-gray-900 dark:text-white"
+                style={{
+                  fontFamily: 'Acid Grotesk, sans-serif',
+                  fontSize: '30px',
+                  fontWeight: '400',
+                }}
+              >
+                Filters
+              </h2>
+              <button
+                onClick={handleCancel}
+                className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
           </div>
 
           {/* Date Filter Section */}
-          <div className="mb-8 pb-6 border-b border-gray-200 dark:border-gray-800">
+          <div className="mb-6 pb-4 border-b border-gray-200 dark:border-gray-800">
             <h3 
-              className="text-gray-900 dark:text-white mb-6"
+              className="text-gray-900 dark:text-white mb-4"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '20px',
-                fontWeight: '500',
+                fontSize: '26px',
+                fontWeight: '400',
               }}
             >
               Date
             </h3>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <div className="relative">
                   <input
@@ -155,14 +98,21 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
                     name="dateSort"
                     checked={tempDateSort === 'latest'}
                     onChange={() => setTempDateSort('latest')}
-                    className="w-6 h-6 border-2 border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-600"
+                    className="w-5 h-5 border-2 rounded-full appearance-none cursor-pointer"
+                    style={{
+                      borderColor: tempDateSort === 'latest' ? '#007AFF' : '#D1D5DB',
+                      backgroundColor: tempDateSort === 'latest' ? '#007AFF' : 'transparent',
+                      boxShadow: tempDateSort === 'latest' ? '0 0 0 2px white inset' : 'none',
+                      borderRadius: '9999px',
+                    }}
                   />
                 </div>
                 <span 
                   className="text-gray-900 dark:text-white"
                   style={{
                     fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
+                    fontSize: '17.68px',
+                    fontWeight: '400',
                   }}
                 >
                   Latest
@@ -176,14 +126,21 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
                     name="dateSort"
                     checked={tempDateSort === 'oldest'}
                     onChange={() => setTempDateSort('oldest')}
-                    className="w-6 h-6 border-2 border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-600"
+                    className="w-5 h-5 border-2 rounded-full appearance-none cursor-pointer"
+                    style={{
+                      borderColor: tempDateSort === 'oldest' ? '#007AFF' : '#D1D5DB',
+                      backgroundColor: tempDateSort === 'oldest' ? '#007AFF' : 'transparent',
+                      boxShadow: tempDateSort === 'oldest' ? '0 0 0 2px white inset' : 'none',
+                      borderRadius: '9999px',
+                    }}
                   />
                 </div>
                 <span 
                   className="text-gray-900 dark:text-white"
                   style={{
                     fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
+                    fontSize: '17.68px',
+                    fontWeight: '400',
                   }}
                 >
                   Oldest
@@ -191,21 +148,28 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
               </label>
 
               <div>
-                <label className="flex items-center gap-3 cursor-pointer mb-3">
+                <label className="flex items-center gap-3 cursor-pointer mb-2">
                   <div className="relative">
                     <input
                       type="radio"
                       name="dateSort"
                       checked={tempDateSort === 'custom'}
                       onChange={() => setTempDateSort('custom')}
-                      className="w-6 h-6 border-2 border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-2 focus:ring-blue-600"
+                      className="w-5 h-5 border-2 rounded-full appearance-none cursor-pointer"
+                      style={{
+                        borderColor: tempDateSort === 'custom' ? '#007AFF' : '#D1D5DB',
+                        backgroundColor: tempDateSort === 'custom' ? '#007AFF' : 'transparent',
+                        boxShadow: tempDateSort === 'custom' ? '0 0 0 2px white inset' : 'none',
+                        borderRadius: '9999px',
+                      }}    
                     />
                   </div>
                   <span 
                     className="text-gray-900 dark:text-white"
                     style={{
                       fontFamily: 'General Sans, sans-serif',
-                      fontSize: '16px',
+                      fontSize: '17.68px',
+                      fontWeight: '400',
                     }}
                   >
                     Custom Range
@@ -216,10 +180,10 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
                   <input
                     type="text"
                     placeholder="Select range"
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-none bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600"
                     style={{
                       fontFamily: 'General Sans, sans-serif',
-                      fontSize: '16px',
+                      fontSize: '14px',
                     }}
                   />
                 )}
@@ -228,25 +192,31 @@ export default function FilterModal({ isOpen, onClose, authors }: FilterModalPro
           </div>
 
           {/* Action Buttons */}
-          <div className="space-y-3 mt-8">
+          <div className="space-y-2">
             <button
               onClick={handleApply}
-              className="w-full px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="w-full px-4 py-3 bg-blue-600 text-white rounded-none hover:bg-blue-700 transition-colors"
               style={{
                 fontFamily: 'General Sans, sans-serif',
-                fontSize: '18px',
-                fontWeight: '600',
+                fontSize: '19.29px',
+                fontWeight: '500',
+                lineHeight: '18.6px',
+                textAlign: 'center',
+                verticalAlign: 'middle',
               }}
             >
               Apply Filters
             </button>
             <button
               onClick={handleClear}
-              className="w-full px-6 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+              className="w-full px-4 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               style={{
                 fontFamily: 'General Sans, sans-serif',
-                fontSize: '16px',
+                fontSize: '19.29px',
                 fontWeight: '500',
+                lineHeight: '18.6px',
+                textAlign: 'center',
+                verticalAlign: 'middle',
               }}
             >
               Clear Filters

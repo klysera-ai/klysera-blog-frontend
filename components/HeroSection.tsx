@@ -45,7 +45,7 @@ export default function HeroSection({ post }: HeroSectionProps) {
       
       {/* Content */}
       <div className="relative h-full flex items-end">
-        <div className="container mx-auto px-4 pb-16 max-w-6xl">
+        <div className="container mx-auto pb-16 max-w-6xl">
           <h1 
             className="text-white mb-6"
             style={{

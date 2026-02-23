@@ -22,10 +22,10 @@ export default function BlogToolbar({
   readModeActive,
 }: BlogToolbarProps) {
   return (
-    <div className="w-full max-w-[976px] mx-auto pt-[150px] mb-12">
-      <div className="flex items-center justify-between">
+    <div className="w-full max-w-[976px] mx-auto pt-[150px] mb-12 flex flex-col items-center">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full items-center">
         {/* Breadcrumb */}
-        <nav className="flex items-center">
+        <nav className="flex flex-col items-center sm:flex-row">
           <Link
             href={parentHref}
             className="text-black dark:text-white hover:opacity-70 transition-opacity"
@@ -33,7 +33,7 @@ export default function BlogToolbar({
               fontFamily: 'General Sans, sans-serif',
               fontWeight: 400,
               fontSize: '16px',
-              lineHeight: '38px',
+              lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
           >
@@ -45,7 +45,7 @@ export default function BlogToolbar({
               fontFamily: 'General Sans, sans-serif',
               fontWeight: 400,
               fontSize: '16px',
-              lineHeight: '38px',
+              lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
           >
@@ -57,7 +57,7 @@ export default function BlogToolbar({
               fontFamily: 'General Sans, sans-serif',
               fontWeight: 400,
               fontSize: '16px',
-              lineHeight: '38px',
+              lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
           >

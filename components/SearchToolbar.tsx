@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useViewMode } from '@/contexts/ViewModeContext';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
 import FilterModal from './FilterModal';
@@ -13,6 +13,8 @@ interface SearchToolbarProps {
 export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   const [localSearch, setLocalSearch] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const filterButtonRefMobile = useRef<HTMLButtonElement>(null);
+  const filterButtonRefDesktop = useRef<HTMLButtonElement>(null);
   const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, selectedAuthors, setSelectedAuthors } = useSearchFilter();
   const { viewMode, toggleViewMode, mounted } = useViewMode();
 
@@ -98,6 +100,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             {/* Filter & View Toggle - Below search on mobile */}
             <div className="flex items-center justify-between gap-4">
               <button
+                ref={filterButtonRefMobile}
                 onClick={() => setIsFilterOpen(true)}
                 className="relative p-3 rounded-none border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
                 aria-label="Filter"
@@ -113,14 +116,20 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               </button>
 
               {/* Grid/List Toggle */}
-              <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-900 rounded-none p-1 flex-1">
+              <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 flex-1">
+                {/* Animated Sliding Background */}
+                <div
+                  className="absolute top-1 bottom-1 transition-all duration-300 ease-out backdrop-blur-md bg-gray-200/80 dark:bg-gray-800/80"
+                  style={{
+                    width: 'calc(50% - 4px)',
+                    left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
+                    borderRadius: '1px',
+                  }}
+                />
+                
                 <button
                   onClick={() => handleViewChange('grid')}
-                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-none transition-colors flex-1 ${
-                    viewMode === 'grid'
-                      ? 'bg-white dark:bg-gray-800 shadow-sm'
-                      : 'hover:bg-gray-200 dark:hover:bg-gray-800'
-                  }`}
+                  className="relative z-10 flex items-center justify-center gap-2 px-4 py-2 rounded-none transition-opacity hover:opacity-80 flex-1"
                   aria-label="Grid view"
                 >
                   <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" className={viewMode === 'grid' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
@@ -135,11 +144,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 </button>
                 <button
                   onClick={() => handleViewChange('list')}
-                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-none transition-colors flex-1 ${
-                    viewMode === 'list'
-                      ? 'bg-white dark:bg-gray-800 shadow-sm'
-                      : 'hover:bg-gray-200 dark:hover:bg-gray-800'
-                  }`}
+                  className="relative z-10 flex items-center justify-center gap-2 px-4 py-2 rounded-none transition-opacity hover:opacity-80 flex-1"
                   aria-label="List view"
                 >
                   <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg" className={viewMode === 'list' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
@@ -205,6 +210,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
           {/* Right Side - Filter & View Toggle */}
           <div className="flex items-center gap-4">
             <button
+              ref={filterButtonRefDesktop}
               onClick={() => setIsFilterOpen(true)}
               className="relative p-3 rounded-none border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
               aria-label="Filter"
@@ -220,14 +226,20 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             </button>
 
             {/* Grid/List Toggle */}
-            <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-900 rounded-none p-1">
+            <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1">
+              {/* Animated Sliding Background */}
+              <div
+                className="absolute top-1 bottom-1 transition-all duration-300 ease-out backdrop-blur-md bg-gray-200/80 dark:bg-gray-800/80"
+                style={{
+                  width: 'calc(50% - 4px)',
+                  left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
+                  borderRadius: '1px',
+                }}
+              />
+              
               <button
                 onClick={() => handleViewChange('grid')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-none transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-white dark:bg-gray-800 shadow-sm'
-                    : 'hover:bg-gray-200 dark:hover:bg-gray-800'
-                }`}
+                className="relative z-10 flex items-center gap-2 px-4 py-2 rounded-none transition-opacity hover:opacity-80"
                 aria-label="Grid view"
               >
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" className={viewMode === 'grid' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
@@ -242,11 +254,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               </button>
               <button
                 onClick={() => handleViewChange('list')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-none transition-colors ${
-                  viewMode === 'list'
-                    ? 'bg-white dark:bg-gray-800 shadow-sm'
-                    : 'hover:bg-gray-200 dark:hover:bg-gray-800'
-                }`}
+                className="relative z-10 flex items-center gap-2 px-4 py-2 rounded-none transition-opacity hover:opacity-80"
                 aria-label="List view"
               >
                 <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg" className={viewMode === 'list' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}>
@@ -341,7 +349,9 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
         isOpen={isFilterOpen} 
         onClose={() => setIsFilterOpen(false)} 
         authors={uniqueAuthors}
+        buttonRefMobile={filterButtonRefMobile}
+        buttonRefDesktop={filterButtonRefDesktop}
       />
-</>
+    </>
   );
 }

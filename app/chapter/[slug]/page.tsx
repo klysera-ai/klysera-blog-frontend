@@ -2,9 +2,10 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { Clock, User } from 'lucide-react';
 import { getPostBySlug, getPostsFromMultipleCategories } from '@/lib/wordpress';
 import { formatDate, getReadingTime } from '@/lib/utils';
-import ShareButtons from '@/components/ShareButtons';
+import TableOfContents from '@/components/TableOfContents';
 import { getDummyPostBySlug } from '@/lib/dummy-posts';
 
 interface PostPageProps {
@@ -86,182 +87,82 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="bg-white dark:bg-black min-h-screen">
-      {/* Featured Image Hero */}
-      {post.featuredImage && (
-        <div className="relative w-full h-[300px] md:h-[600px]">
-          <Image
-            src={post.featuredImage.url}
-            alt={post.featuredImage.alt}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        </div>
-      )}
-
-      {/* Content Container */}
-      <div className="container mx-auto px-4 -mt-16 md:-mt-32 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <header className="mb-12">
+      <div className="container mx-auto px-6 py-8 max-w-[1200px]">
+        {/* Three Column Layout */}
+        <div className="lg:grid lg:grid-cols-[200px_1fr_200px] lg:gap-0">
+          {/* Left Empty Column */}
+          <div className="hidden lg:block" />
+          
+          {/* Main Content */}
+          <div className="max-w-[800px]">
             {/* Breadcrumb */}
             <nav className="mb-6">
-              <Link
-                href="/chapter"
-                className="inline-flex items-center gap-1.5 md:gap-2 text-gray-600 hover:text-gray-900 dark:text-white/80 dark:hover:text-white transition-colors text-sm md:text-base"
-                style={{
-                  fontFamily: 'General Sans, sans-serif',
-                }}
-              >
-                <svg className="w-3.5 h-3.5 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                Back to Chapter
-              </Link>
-            </nav>
-
-            {/* Categories */}
-            {post.categories.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {post.categories.map((category) => (
-                  <span
-                    key={category.id}
-                    className="px-4 py-1.5 bg-blue-600 text-white rounded-none"
-                    style={{
-                      fontFamily: 'Acid Grotesk, sans-serif',
-                      fontSize: '14px',
-                    }}
-                  >
-                    {category.name}
-                  </span>
-                ))}
+              <div className="text-sm text-gray-500 dark:text-gray-400" style={{ fontFamily: 'General Sans, sans-serif' }}>
+                <Link href="/chapter" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+                  Chapter
+                </Link>
+                <span className="mx-2">&gt;</span>
+                <span className="text-gray-900 dark:text-white">{slug}</span>
               </div>
-            )}
+            </nav>
 
             {/* Title */}
             <h1
-              className="text-gray-900 dark:text-white mb-6 text-3xl md:text-5xl"
-              style={{
+              className="text-gray-900 dark:text-white mb-8"
+              style={{ 
                 fontFamily: 'Acid Grotesk, sans-serif',
-                lineHeight: '1.2',
-                fontWeight: '600',
+                fontWeight: 400,
+                fontSize: '50px',
+                lineHeight: '100%',
+                letterSpacing: '-0.02em'
               }}
             >
               {post.title}
             </h1>
 
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-white/70 mb-8">
-              <time
-                dateTime={post.date}
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                }}
-              >
-                {formatDate(post.date)}
-              </time>
-              <span>•</span>
-              <span
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '14px',
-                }}
-              >
-                {getReadingTime(post.content)}
-              </span>
-            </div>
-
-            {/* Author */}
-            <div className="flex items-center gap-4 p-6 bg-white dark:bg-gray-900 rounded-none">
-              {post.author.avatar && (
-                <div className="relative w-16 h-16 rounded-none overflow-hidden flex-shrink-0">
-                  <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-                </div>
-              )}
-              <div>
-                <p
-                  className="text-gray-900 dark:text-white"
-                  style={{
-                    fontFamily: 'Acid Grotesk, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                  }}
-                >
-                  {post.author.name}
-                </p>
-                <p
-                  className="text-gray-600 dark:text-gray-400"
-                  style={{
-                    fontFamily: 'General Sans, sans-serif',
-                    fontSize: '14px',
-                  }}
-                >
-                  Author
-                </p>
+            {/* Featured Image */}
+            {post.featuredImage && (
+              <div className="relative w-full aspect-[16/9] md:aspect-[2/1] rounded-xl overflow-hidden mb-6">
+                <Image
+                  src={post.featuredImage.url}
+                  alt={post.featuredImage.alt}
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
-            </div>
-          </header>
+            )}
 
-          {/* Main Content */}
-          <div className="bg-white dark:bg-gray-900 rounded-none p-8 md:p-12 mb-12">
+            {/* Post Meta */}
+            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-12" style={{ fontFamily: 'General Sans, sans-serif' }}>
+              <div className="flex items-center gap-1.5">
+                <User className="w-4 h-4" />
+                <span>by {post.author.name}</span>
+              </div>
+              <span>•</span>
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                <span>{getReadingTime(post.content)}</span>
+              </div>
+              {post.categories.length > 0 && (
+                <>
+                  <span>•</span>
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {post.categories[0].name}
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Main Content */}
             <div
               className="post-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
 
-          {/* Tags */}
-          {post.tags.length > 0 && (
-            <div className="bg-white dark:bg-gray-900 rounded-none p-8 mb-12">
-              <h3
-                className="text-gray-900 dark:text-white mb-4"
-                style={{
-                  fontFamily: 'Acid Grotesk, sans-serif',
-                  fontSize: '20px',
-                  fontWeight: '500',
-                }}
-              >
-                Tags
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag.id}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-none"
-                    style={{
-                      fontFamily: 'Acid Grotesk, sans-serif',
-                      fontSize: '14px',
-                    }}
-                  >
-                    #{tag.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Share Section */}
-          <ShareButtons title={post.title} />
-
-          {/* Back to Chapter Button */}
-          <div className="text-center pb-12">
-            <Link
-              href="/chapter"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-none transition-colors"
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontSize: '16px',
-                fontWeight: '500',
-              }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to all chapters
-            </Link>
-          </div>
+          {/* Table of Contents - Sidebar */}
+          <TableOfContents content={post.content} />
         </div>
       </div>
     </article>

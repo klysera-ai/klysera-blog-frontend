@@ -60,20 +60,20 @@ export default async function HomePage() {
       return doc.body.textContent || '';
     }
   };
-  // Use the first post as the featured hero post
-  const featuredPost = posts.length > 0 ? {
-    id: posts[0].id,
-    title: posts[0].title,
-    excerpt: stripHtml(posts[0].excerpt),
-    slug: posts[0].slug,
-    featured_media_url: posts[0].featuredImage?.url || '',
-  } : undefined;
+  // Get the 3 latest posts for the hero carousel
+  const heroPosts = posts.length > 0 ? posts.slice(0, 3).map(post => ({
+    id: post.id,
+    title: post.title,
+    excerpt: stripHtml(post.excerpt),
+    slug: post.slug,
+    featured_media_url: post.featuredImage?.url || '',
+  })) : undefined;
 
   return (
     <SearchFilterProvider>
       <ViewModeProvider>
         {/* Hero Section */}
-        <HeroSection post={featuredPost} />
+        <HeroSection posts={heroPosts} />
       
       {/* Search Toolbar */}
       <SearchToolbar posts={posts} />

@@ -106,28 +106,27 @@ export default function PostCard({
     <article style={{ padding: '15px', borderColor: '#DCE5EF', borderWidth: '1px' }} className="group bg-white dark:bg-black rounded-none overflow-hidden border dark:border-[#A9A9A94D]">
       {post.featuredImage && (
         <Link href={postUrl}>
-          <div className="relative h-64 w-full overflow-hidden">
+          <div className="relative aspect-square w-full overflow-hidden">
             <Image
               src={post.featuredImage.url}
               alt={post.featuredImage.alt}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-110"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
           </div>
         </Link>
       )}
 
-      <div style={{ padding: '20px' }}>
+      <div>
         {/* Title */}
         <Link href={postUrl}>
           <p 
-            className="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="text-gray-900 py-[15px] dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '16px',
               fontWeight: '400',
               lineHeight: '1.5',
-              marginBottom: '40px',
             }}
           >
             {post.title}

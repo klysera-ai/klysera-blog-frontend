@@ -19,8 +19,8 @@ export default function HeroSection({ posts }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   
   // Dummy data if no posts are provided (3 posts for carousel)
-  const heroPosts = posts || [
-    {
+  const staticPosts = [
+      {
       id: 1,
       title: 'Lorem ipsum dolor sit amet,',
       excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -29,19 +29,21 @@ export default function HeroSection({ posts }: HeroSectionProps) {
     },
     {
       id: 2,
-      title: 'Second Featured Post Title',
-      excerpt: 'This is the second post excerpt with engaging content that draws readers in and provides context about the article.',
+      title: 'Lorem ipsum dolor sit amet,',
+      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       slug: 'dummy-post-2',
       featured_media_url: '/hero-placeholder.jpg',
     },
     {
       id: 3,
-      title: 'Third Amazing Article',
-      excerpt: 'The third post in our carousel showcasing the latest and most interesting content from our blog.',
+       title: 'Lorem ipsum dolor sit amet,',
+      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       slug: 'dummy-post-3',
       featured_media_url: '/hero-placeholder.jpg',
     },
   ];
+  // const heroPosts = posts && posts.length > 0 ? posts : staticPosts;
+  const heroPosts = staticPosts;
 
   // Auto-rotate carousel every 5 seconds
   useEffect(() => {
@@ -53,15 +55,17 @@ export default function HeroSection({ posts }: HeroSectionProps) {
   }, [heroPosts.length]);
 
   const currentPost = heroPosts[currentSlide];
-  const backgroundImage = currentPost.featured_media_url || '/images/sections/hero-image.png';
-
+  
+  // Use static image
+  const staticBackground = '/images/sections/hero-image.png';
+  // const backgroundImage = currentPost.featured_media_url || staticBackground;
   return (
     <div className="relative w-full h-[617px] md:h-[400px] overflow-hidden">
       {/* Background Image with transition */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out"
         style={{
-          backgroundImage: `url('${backgroundImage}')`,
+          backgroundImage: `url('${staticBackground}')`,
         }}
       />
       
@@ -69,13 +73,13 @@ export default function HeroSection({ posts }: HeroSectionProps) {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%)',
+          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.84) 100%)',
         }}
       />
       
       {/* Content */}
       <div className="relative h-full flex items-end">
-        <div className="container mx-auto pb-16 md:pb-16 max-w-6xl px-4 md:px-6">
+        <div className="container mx-auto pb-16 md:pb-16 max-w-6xl px-4 md:px-0">
           <h1 
             className="text-white mb-6 md:mb-4 text-[50px] md:text-[46px] transition-opacity duration-500"
             style={{

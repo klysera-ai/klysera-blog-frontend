@@ -24,7 +24,7 @@ export async function getPosts(params?: {
     };
   }
 
-  const { page = 1, perPage = 10, categories, tags, search } = params || {};
+  const { page = 1, perPage = 12, categories, tags, search } = params || {};
 
   const queryParams = new URLSearchParams({
     page: page.toString(),

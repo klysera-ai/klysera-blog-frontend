@@ -11,13 +11,20 @@ export function cn(...inputs: ClassValue[]) {
 /**
  * Format date to readable string
  */
-export function formatDate(date: string): string {
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  return new Date(date).toLocaleDateString('en-US', options);
+
+import { format } from 'date-fns';
+
+export function formatDate(date: string, formatStr?: string): string {
+  const d = new Date(date);
+  if (formatStr) {
+    try {
+      return format(d, formatStr);
+    } catch {
+      // fallback to default if format fails
+    }
+  }
+  // Default: 'd MMM yyyy' (e.g., 10 Feb 2025)
+  return format(d, 'd MMM yyyy');
 }
 
 /**

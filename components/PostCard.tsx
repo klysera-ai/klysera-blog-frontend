@@ -103,7 +103,7 @@ export default function PostCard({
 
   const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
   return (
-    <article style={{ padding: '15px', borderColor: '#DCE5EF', borderWidth: '1px' }} className="group bg-white dark:bg-black rounded-none overflow-hidden border dark:border-[#A9A9A94D]">
+    <article style={{ padding: '15px', borderColor: '#DCE5EF', borderWidth: '1px' }} className="group flex flex-col justify-between  bg-white dark:bg-black rounded-none overflow-hidden border dark:border-[#A9A9A94D]">
       {post.featuredImage && (
         <Link href={postUrl}>
           <div className="relative aspect-square w-full overflow-hidden">
@@ -117,7 +117,8 @@ export default function PostCard({
         </Link>
       )}
 
-      <div>
+          
+      <div className='flex flex-col flex-1 justify-between min-h-[80px]'>
         {/* Title */}
         <Link href={postUrl}>
           <p 
@@ -159,7 +160,7 @@ export default function PostCard({
               fontWeight: '400',
             }}
           >
-            {formatDate(post.date)}
+            {formatDate(post.date, 'd MMM yyyy')}
           </time>
         </div>
       </div>

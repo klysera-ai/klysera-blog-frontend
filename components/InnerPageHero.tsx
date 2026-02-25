@@ -19,7 +19,7 @@ export default function InnerPageHero({ title, description }: InnerPageHeroProps
               className="text-[#001F3F] dark:text-white text-5xl md:text-[100px]"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontWeight: '400',
+                fontWeight: '200',
                 lineHeight: '1.2',
               }}
             >
@@ -34,7 +34,7 @@ export default function InnerPageHero({ title, description }: InnerPageHeroProps
                 className="text-[#001F3F] dark:text-white"
                 style={{
                   fontFamily: 'General Sans, sans-serif',
-                  fontWeight: '400',
+                  fontWeight: '200',
                   fontSize: '16px',
                   lineHeight: '30px',
                 }}

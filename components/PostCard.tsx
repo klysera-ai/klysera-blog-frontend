@@ -58,7 +58,7 @@ export default function PostCard({
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '26px',
-                fontWeight: '400',
+                fontWeight: '200',
                 lineHeight: '1.3',
                 color: getTitleColor(),
               }}
@@ -73,7 +73,7 @@ export default function PostCard({
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '14px',
-                fontWeight: '400',
+                fontWeight: '200',
                 whiteSpace: 'nowrap',
                 color: getTitleColor(),
               }}
@@ -88,7 +88,7 @@ export default function PostCard({
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '14px',
-              fontWeight: '400',
+              fontWeight: '200',
               whiteSpace: 'nowrap',
               textAlign:'left',
               color: getTitleColor(),
@@ -126,7 +126,7 @@ export default function PostCard({
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '16px',
-              fontWeight: '400',
+              fontWeight: '200',
               lineHeight: '1.5',
             }}
           >
@@ -143,7 +143,7 @@ export default function PostCard({
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '14px',
-                fontWeight: '400',
+                fontWeight: '200',
               }}
             >
               {post.categories[0].name}
@@ -157,7 +157,7 @@ export default function PostCard({
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '14px',
-              fontWeight: '400',
+              fontWeight: '200',
             }}
           >
             {formatDate(post.date, 'd MMM yyyy')}

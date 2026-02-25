@@ -85,7 +85,7 @@ export default function HeroSection({ posts }: HeroSectionProps) {
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               lineHeight: '1.2',
-              fontWeight: '400',
+              fontWeight: '200',
             }}
           >
             {currentPost.title}

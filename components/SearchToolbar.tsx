@@ -137,7 +137,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                   </svg>
                   <span 
                     className={`text-sm font-medium ${viewMode === 'grid' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
-                    style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '400' }}
+                    style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '200' }}
                   >
                     Grid
                   </span>
@@ -152,7 +152,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                   </svg>
                   <span 
                     className={`text-sm font-medium ${viewMode === 'list' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
-                    style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '400' }}
+                    style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '200' }}
                   >
                     List
                   </span>
@@ -231,7 +231,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               <div
                 className="absolute top-1 bottom-1 transition-all duration-300 ease-out backdrop-blur-md bg-gray-200/80 dark:bg-gray-800/80"
                 style={{
-                  width: 'calc(50% - 4px)',
+                  width: 'calc(50% - 0px)',
                   left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
                   borderRadius: '1px',
                 }}
@@ -247,7 +247,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 </svg>
                 <span 
                   className={`text-sm font-medium ${viewMode === 'grid' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
-                  style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '400' }}
+                  style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '200' }}
                 >
                   Grid
                 </span>
@@ -262,7 +262,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 </svg>
                 <span 
                   className={`text-sm font-medium ${viewMode === 'list' ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
-                  style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '400' }}
+                  style={{ fontFamily: 'Acid Grotesk, sans-serif', fontSize: '14px', fontWeight: '200' }}
                 >
                   List
                 </span>

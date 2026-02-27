@@ -10,7 +10,7 @@ interface PostListWithPaginationProps {
 }
 
 export default function PostListWithPagination({ allPosts }: PostListWithPaginationProps) {
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(16);
   const { searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange } = useSearchFilter();
 
   // Filter posts based on search query, categories, and authors
@@ -64,12 +64,12 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   const hasMore = visibleCount < filteredPosts.length;
 
   const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 10, filteredPosts.length));
+    setVisibleCount(prev => Math.min(prev + 16, filteredPosts.length));
   };
 
   // Reset visible count when search changes
   useMemo(() => {
-    setVisibleCount(10);
+    setVisibleCount(16);
   }, [searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange]);
 
   if (filteredPosts.length === 0) {
@@ -118,11 +118,13 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
         <div className="flex justify-center mt-12">
           <button
             onClick={loadMore}
-            className="px-8 py-3 bg-white dark:bg-black text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 rounded-none hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+            className="px-8 py-3 rounded-none transition-colors border-none"
             style={{
-              fontFamily: 'General Sans, sans-serif',
-              fontSize: '16px',
-              fontWeight: '500',
+              fontFamily: 'Acid Grotesk, sans-serif',
+              fontSize: '14px',
+              fontWeight: '200',
+              backgroundColor: '#DCE5EF',
+              color: '#001F3F',
             }}
           >
             Load More

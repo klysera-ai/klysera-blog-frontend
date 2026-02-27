@@ -45,7 +45,7 @@ export default function PostCard({
     return (
       <article 
         className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800"
-        style={{ paddingTop: '20px', paddingBottom: '20px' }}
+        style={{ paddingBottom: '20px' }}
         onMouseEnter={() => onHover?.(post.id)}
         onMouseLeave={() => onHover?.(null)}
       >
@@ -57,7 +57,7 @@ export default function PostCard({
               className="transition-colors"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '26px',
+                fontSize: '22px',
                 fontWeight: '200',
                 lineHeight: '1.3',
                 color: getTitleColor(),
@@ -122,12 +122,13 @@ export default function PostCard({
         {/* Title */}
         <Link href={postUrl}>
           <p 
-            className="text-gray-900 py-[15px] dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="py-[15px] hover:opacity-80 transition-opacity"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '16px',
               fontWeight: '200',
               lineHeight: '1.5',
+              color: '#001F3F',
             }}
           >
             {post.title}
@@ -139,11 +140,11 @@ export default function PostCard({
           {/* Category Label - Bottom Left */}
           {post.categories.length > 0 && (
             <span 
-              className="text-gray-900 dark:text-white"
               style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
+                fontFamily: 'General Sans, sans-serif',
                 fontSize: '14px',
-                fontWeight: '200',
+                fontWeight: '400',
+                color: '#001F3F',
               }}
             >
               {post.categories[0].name}
@@ -153,11 +154,11 @@ export default function PostCard({
           {/* Date - Bottom Right */}
           <time 
             dateTime={post.date}
-            className="text-gray-500 dark:text-gray-400"
             style={{
-              fontFamily: 'Acid Grotesk, sans-serif',
+              fontFamily: 'General Sans, sans-serif',
               fontSize: '14px',
-              fontWeight: '200',
+              fontWeight: '400',
+              color: '#A9A9A9',
             }}
           >
             {formatDate(post.date, 'd MMM yyyy')}

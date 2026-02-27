@@ -60,7 +60,7 @@ export default function HeroSection({ posts }: HeroSectionProps) {
   const staticBackground = '/images/sections/hero-image.png';
   // const backgroundImage = currentPost.featured_media_url || staticBackground;
   return (
-    <div className="relative w-full h-[617px] md:h-[400px] overflow-hidden">
+    <div className="relative w-full h-[450px] md:h-[500px] overflow-hidden">
       {/* Background Image with transition */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out"
@@ -81,9 +81,10 @@ export default function HeroSection({ posts }: HeroSectionProps) {
       <div className="relative h-full flex items-end">
         <div className="container mx-auto pb-16 md:pb-16 max-w-6xl px-4 md:px-0">
           <h1 
-            className="text-white mb-6 md:mb-4 text-[50px] md:text-[46px] transition-opacity duration-500"
+            className="text-white mb-6 md:mb-4 transition-opacity duration-500"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
+              fontSize: '36px',
               lineHeight: '1.2',
               fontWeight: '200',
             }}
@@ -91,11 +92,12 @@ export default function HeroSection({ posts }: HeroSectionProps) {
             {currentPost.title}
           </h1>
           <p 
-            className="text-white max-w-3xl text-[18px] md:text-[18px] transition-opacity duration-500"
+            className="text-white max-w-3xl transition-opacity duration-500"
             style={{
               fontFamily: 'General Sans, sans-serif',
+              fontSize: '16px',
               lineHeight: '1.6',
-              opacity: '0.95',
+              opacity: '0.7',
             }}
           >
             {currentPost.excerpt}
@@ -109,8 +111,8 @@ export default function HeroSection({ posts }: HeroSectionProps) {
                 onClick={() => setCurrentSlide(index)}
                 className="transition-all duration-300 ease-out rounded-full"
                 style={{
-                  width: currentSlide === index ? '70px' : '15px',
-                  height: '15px',
+                  width: currentSlide === index ? '30px' : '8px',
+                  height: '8px',
                   borderRadius: '9999px',
                   backgroundColor: currentSlide === index ? '#FFFFFF59' : '#FFFFFF2E',
                 }}

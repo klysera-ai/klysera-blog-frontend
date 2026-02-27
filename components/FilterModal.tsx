@@ -56,17 +56,37 @@ export default function FilterModal({ isOpen, onClose, authors, buttonRefMobile,
       const button = buttonRef.current;
       if (button) {
         const rect = button.getBoundingClientRect();
-        const dropdownWidth = isMobile ? 320 : 500; // 500px on laptop/desktop, 320px on mobile
+        const dropdownWidth = isMobile ? 320 : 400; // 400px on laptop/desktop, 320px on mobile
         const viewportWidth = window.innerWidth;
         
-        // Center dropdown relative to button
-        const buttonCenter = rect.left + (rect.width / 2);
-        let left = buttonCenter - (dropdownWidth / 2);
+        let left: number;
         
-        // Ensure dropdown stays within viewport
-        if (left < 16) left = 16; // Min 16px from left edge
-        if (left + dropdownWidth > viewportWidth - 16) {
-          left = viewportWidth - dropdownWidth - 16; // Max 16px from right edge
+        if (isMobile) {
+          // Center dropdown relative to button on mobile
+          const buttonCenter = rect.left + (rect.width / 2);
+          left = buttonCenter - (dropdownWidth / 2);
+          
+          // Ensure dropdown stays within viewport
+          if (left < 16) left = 16; // Min 16px from left edge
+          if (left + dropdownWidth > viewportWidth - 16) {
+            left = viewportWidth - dropdownWidth - 16; // Max 16px from right edge
+          }
+        } else {
+          // On desktop: align right edge with SearchToolbar container's right edge
+          // Find the SearchToolbar container
+          const toolbar = button.closest('.container');
+          if (toolbar) {
+            const toolbarRect = toolbar.getBoundingClientRect();
+            // Position so right edge aligns with toolbar's right edge (minus padding)
+            left = toolbarRect.right - dropdownWidth - 16; // 16px for px-4 padding
+          } else {
+            // Fallback: center relative to button
+            const buttonCenter = rect.left + (rect.width / 2);
+            left = buttonCenter - (dropdownWidth / 2);
+          }
+          
+          // Ensure dropdown stays within viewport
+          if (left < 16) left = 16;
         }
         
         setPosition({
@@ -127,7 +147,7 @@ export default function FilterModal({ isOpen, onClose, authors, buttonRefMobile,
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '18px',
-                fontWeight: '600',
+                fontWeight: '200',
               }}
             >
               Filters
@@ -246,10 +266,13 @@ export default function FilterModal({ isOpen, onClose, authors, buttonRefMobile,
             <div className="flex flex-col gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={handleApply}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                className="w-full px-4 py-2 text-white rounded-md transition-colors text-sm font-medium"
                 style={{
                   fontFamily: 'General Sans, sans-serif',
+                  backgroundColor: '#007AFF',
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0066DD'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007AFF'}
               >
                 Apply
               </button>

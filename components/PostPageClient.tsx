@@ -22,7 +22,7 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
   const toggleReadMode = () => setReadMode(!readMode);
 
   return (
-    <article className="bg-white dark:bg-black min-h-screen flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-24 px-4 md:px-6 lg:px-8 py-10 lg:py-16 xl:py-24">
+    <article className="bg-white dark:bg-black min-h-screen flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-24 px-2 md:px-10 md:px-6 lg:px-12 py-10 lg:py-16 xl:py-24">
       {/* 200px empty container */}
       <div style={{ width: '200px' }}></div>
       <div className="main-blog-content-container">
@@ -36,17 +36,24 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
           readModeActive={readMode}
         />
         {/* Main post content container */}
-        <div className="max-w-[976px] bg-[#F9F9F9] dark:bg-black mx-auto px-4">
+        <div 
+          className="max-w-[976px] mx-auto px-4"
+          style={{
+            backgroundColor: !readMode ? 'transparent' : '#F9F9F9',
+            borderLeft: !readMode ? '1px solid rgba(0, 0, 0, 0.1)' : 'none',
+            borderRight: !readMode ? '1px solid rgba(0, 0, 0, 0.1)' : 'none',
+          }}
+        >
           <h1
             className={`text-center text-black dark:text-white pt-11 pb-[26px] px-[26px] md:px-[30px] lg:px-[56px] ${
               fontSizeIncrease 
-                ? 'text-[38.4px] md:text-[48px] lg:text-[60px]' 
-                : 'text-[32px] md:text-[40px] lg:text-[50px]'
+                ? 'text-[30px] md:text-[42px] lg:text-[42px]' 
+                : 'text-[28px] md:text-[40px] lg:text-[40px]'
             }`}
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
-              fontWeight: 400,
-              lineHeight: '100%',
+              fontWeight: 200,
+              lineHeight: '150%',
               letterSpacing: '-0.02em',
             }}
           >
@@ -55,7 +62,7 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
 
           {/* Featured Image */}
           {post.featuredImage && (
-            <div className="flex justify-center mb-4 md:mb-5 lg:mb-[26px]">
+            <div className="flex justify-center mb-4 px-2 md:px-10 md:mb-5 lg:mb-[26px]">
               <div className="relative w-full max-w-[738px] h-auto">
                 <Image
                   src={post.featuredImage.url}
@@ -119,7 +126,7 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
           </div>
           {/* Post Content */}
           <div 
-            className="post-content max-w-[738px] mx-auto mb-16 pb-[40px] md:pb-[60px] lg:pb-[70px]"
+            className="post-content max-w-[738px] mx-auto mb-16 pb-[40px] px-2 md:px-10 md:pb-[60px] lg:pb-[70px]"
             style={{
               fontSize: fontSizeIncrease ? '120%' : '100%',
             }}

@@ -20,20 +20,8 @@ export default function Footer() {
   };
 
   const getLinkColor = (path: string) => {
-    const isThisLinkHovered = hoveredLink === path;
-    const isAnyLinkHovered = hoveredLink !== null;
-    
-    if (theme === 'dark') {
-      // Dark mode colors
-      if (isThisLinkHovered) return '#FFFFFF';
-      if (isAnyLinkHovered) return '#FFFFFF63';
-      return isActive(path) ? '#FFFFFF' : '#FFFFFF63';
-    } else {
-      // Light mode colors
-      if (isThisLinkHovered) return '#000000';
-      if (isAnyLinkHovered) return '#8E8E93';
-      return isActive(path) ? '#000000' : '#8E8E93';
-    }
+    const active = isActive(path);
+    return active ? '#007AFF' : '#000000';
   };
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -57,26 +45,33 @@ export default function Footer() {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Left Section - Logo and Tagline */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <Link href="/" className="flex items-center gap-3 mb-4">
               {mounted && (
                 <Image
                   src={theme === 'dark' ? '/images/logo/klysera-logo-dark.svg' : '/images/logo/klysera-logo-light.svg'}
                   alt="Klysera Logo"
                   width={120}
-                  height={32}
-                  className="h-8 w-auto"
+                  height={24}
+                  style={{ height: '1.5rem', width: 'auto' }}
                 />
               )}
             </Link>
-            <p className="text-gray-900 dark:text-white font-normal">
+            <p
+              className="text-center md:text-left"
+              style={{
+                fontFamily: 'General Sans, sans-serif',
+                fontWeight: '300',
+                color: '#000000',
+              }}
+            >
               Build Exceptional Products
             </p>
           </div>
 
           {/* Middle Section - Navigation Links */}
-          <div>
-            <ul className="space-y-4">
+          <div className="flex justify-center md:justify-start">
+            <ul className="space-y-4 text-center md:text-left">
               <li>
                 <Link
                   href="/chapter"
@@ -85,7 +80,9 @@ export default function Footer() {
                   className="transition-colors"
                   style={{ 
                     color: getLinkColor('/chapter'),
-                    fontWeight: isActive('/chapter') ? 500 : 400
+                    fontFamily: 'General Sans, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: '200',
                   }}
                 >
                   Chapter
@@ -99,7 +96,9 @@ export default function Footer() {
                   className="transition-colors"
                   style={{ 
                     color: getLinkColor('/insights'),
-                    fontWeight: isActive('/insights') ? 500 : 400
+                    fontFamily: 'General Sans, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: '200',
                   }}
                 >
                   Insights
@@ -113,7 +112,9 @@ export default function Footer() {
                   className="transition-colors"
                   style={{ 
                     color: getLinkColor('/research'),
-                    fontWeight: isActive('/research') ? 500 : 400
+                    fontFamily: 'General Sans, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: '200',
                   }}
                 >
                   Research
@@ -127,7 +128,9 @@ export default function Footer() {
                   className="transition-colors"
                   style={{ 
                     color: getLinkColor('/white-paper'),
-                    fontWeight: isActive('/white-paper') ? 500 : 400
+                    fontFamily: 'General Sans, sans-serif',
+                    fontSize: '16px',
+                    fontWeight: '200',
                   }}
                 >
                   White paper
@@ -137,15 +140,24 @@ export default function Footer() {
           </div>
 
           {/* Right Section - Newsletter */}
-          <div>
-            <h3 className="text-xl font-normal text-gray-900 dark:text-white mb-6">
+          <div className="flex flex-col items-center md:items-start">
+            <h3
+              className="text-center md:text-left"
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '18px',
+                fontWeight: '200',
+                color: '#001F3F',
+                marginBottom: '1.5rem',
+              }}
+            >
               Subscribe to our Newsletter
             </h3>
             <form 
               onSubmit={handleSubscribe} 
-              className="flex flex-col md:flex-row border"
+              className="flex flex-col md:flex-row w-full justify-between border-0 md:border"
               style={{ 
-                borderColor: 'var(--footer-border-color, #d1d5db)',
+                borderColor: '#CFDDE8',
                 padding: '5px',
               }}
             >
@@ -155,14 +167,21 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
                 required
-                className="px-4 py-3 focus:outline-none focus:ring-0 bg-white dark:bg-black text-gray-900 dark:text-white border-0"
+                className="px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none focus:ring-0 bg-white dark:bg-black text-gray-900 dark:text-white border md:border-0"
                 style={{ 
-                  color: 'var(--footer-input-color, currentColor)'
+                  color: 'var(--footer-input-color, currentColor)',
+                  borderColor: '#CFDDE8',
                 }}
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-blue-600 dark:bg-white text-white dark:text-gray-900 hover:bg-blue-700 dark:hover:bg-gray-100 transition-colors font-medium w-full md:w-auto"
+                className="px-6 py-3 text-white transition-colors w-full md:w-auto"
+                style={{
+                  fontFamily: 'General Sans, sans-serif',
+                  fontSize: '14px',
+                  fontWeight: '200',
+                  backgroundColor: '#007AFF',
+                }}
               >
                 Subscribe
               </button>
@@ -172,12 +191,14 @@ export default function Footer() {
 
         {/* Bottom Section - Copyright and Social */}
         <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--footer-border-color, #e5e7eb)' }}>
-          <p className="text-gray-500 text-sm" style={{ color: 'var(--footer-text-color, currentColor)' }}>
+          <p className="text-gray-500 text-sm" style={{ color: 'var(--footer-text-color, currentColor)',
+            fontWeight:200,
+           }}>
             © {currentYear} Kylsera. All rights reserved
           </p>
           
           {/* Social Media Icons */}
-          <div className="flex gap-4">
+          <div className="flex" style={{ gap: '0.6rem' }}>
             <a
               href="#"
               className="hover:opacity-80 transition-opacity"

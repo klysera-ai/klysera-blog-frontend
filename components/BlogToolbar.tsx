@@ -22,17 +22,18 @@ export default function BlogToolbar({
   readModeActive,
 }: BlogToolbarProps) {
   return (
-    <div className="w-full max-w-[976px] mx-auto pt-[150px] mb-12 flex flex-col items-center">
+    <div className="w-full max-w-[976px] mx-auto  mb-12 flex flex-col items-center">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full items-center">
         {/* Breadcrumb */}
         <nav className="flex flex-col items-center sm:flex-row">
+          <div className="flex items-center gap-2 mb-2 sm:mb-0">  
           <Link
             href={parentHref}
             className="text-black dark:text-white hover:opacity-70 transition-opacity"
             style={{
               fontFamily: 'General Sans, sans-serif',
-              fontWeight: 400,
-              fontSize: '16px',
+              fontWeight: 200,
+              fontSize: '14px',
               lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
@@ -44,19 +45,20 @@ export default function BlogToolbar({
             style={{
               fontFamily: 'General Sans, sans-serif',
               fontWeight: 400,
-              fontSize: '16px',
+              fontSize: '14px',
               lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
           >
             /
           </span>
+          </div>
           <span
             className="text-black dark:text-white"
             style={{
               fontFamily: 'General Sans, sans-serif',
               fontWeight: 400,
-              fontSize: '16px',
+              fontSize: '14px',
               lineHeight: '24px',
               letterSpacing: '-0.02em',
             }}
@@ -66,7 +68,7 @@ export default function BlogToolbar({
         </nav>
 
         {/* Icons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mt-0 sm:mt-6">
           {/* Read Mode Icon (Shopping Cart) */}
           <button 
             onClick={onToggleReadMode}

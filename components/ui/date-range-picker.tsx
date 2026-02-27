@@ -96,7 +96,8 @@ export function DateRangePicker({
       {isOpen && (
         <div
           ref={popoverRef}
-          className="absolute z-50 mt-2 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 p-0 w-full max-w-[280px]"
+          className="absolute z-50 mt-2 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 w-full max-w-[350px]"
+          style={{ padding: '20px' }}
         >
           <Calendar
             mode="range"

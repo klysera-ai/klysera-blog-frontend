@@ -17,7 +17,7 @@ export default function PostGrid({ posts }: PostGridProps) {
 
   if (!mounted) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-[40px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-[40px]">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} viewMode="grid" />
         ))}
@@ -43,7 +43,7 @@ export default function PostGrid({ posts }: PostGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-[60px]">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-[40px]">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} viewMode="grid" />
       ))}

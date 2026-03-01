@@ -22,7 +22,7 @@ export default function BlogToolbar({
   readModeActive,
 }: BlogToolbarProps) {
   return (
-    <div className="w-full max-w-[976px] mx-auto  mb-12 flex flex-col items-center">
+    <div className="w-full max-w-[976px] mx-auto  mt-12 flex flex-col items-center">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full items-center">
         {/* Breadcrumb */}
         <nav className="flex flex-col items-center sm:flex-row">

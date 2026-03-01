@@ -171,6 +171,7 @@ export default function Footer() {
                 style={{ 
                   color: 'var(--footer-input-color, currentColor)',
                   borderColor: '#CFDDE8',
+                   fontSize: '14px',
                 }}
               />
               <button

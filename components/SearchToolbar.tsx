@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useTheme } from '@/hooks/useTheme';
 import { useViewMode } from '@/contexts/ViewModeContext';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
 import FilterModal from './FilterModal';
@@ -18,6 +19,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   const filterButtonRefDesktop = useRef<HTMLButtonElement>(null);
   const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, selectedAuthors, setSelectedAuthors } = useSearchFilter();
   const { viewMode, toggleViewMode, mounted } = useViewMode();
+  const { theme } = useTheme();
 
   // Extract unique authors from posts
   const uniqueAuthors = Array.from(
@@ -51,7 +53,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   return (
     <>
       <div className="w-full bg-white dark:bg-black dark:border-gray-800">
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 pb-[0rem] pt-[4rem]">
           {/* Mobile Layout - Search on top, Filter & View toggle on bottom */}
           <div className="flex md:hidden flex-col gap-4">
             {/* Search Input - Full width on mobile */}
@@ -121,14 +123,14 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               </button>
 
               {/* Grid/List Toggle */}
-              <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 flex-1">
+              <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000] flex-1" >
                 {/* Animated Sliding Background */}
                 <div
                   className="absolute top-1 bottom-1 transition-all duration-300 ease-out"
                   style={{
                     width: 'calc(50% - 4px)',
                     left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
-                    backgroundColor: '#DCE5EF',
+                    backgroundColor: theme === 'dark' ? '#FDFCFC1A' : '#FFFFFF',
                     borderRadius: '1px',
                   }}
                 />
@@ -236,14 +238,14 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             </button>
 
             {/* Grid/List Toggle */}
-            <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1">
+            <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000]">
               {/* Animated Sliding Background */}
               <div
                 className="absolute top-1 bottom-1 transition-all duration-300 ease-out"
                 style={{
                   width: 'calc(50% - 0px)',
                   left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
-                  backgroundColor: '#DCE5EF',
+                  backgroundColor: theme === 'dark' ? '#FDFCFC1A' : '#FFFFFF',
                   borderRadius: '1px',
                 }}
               />

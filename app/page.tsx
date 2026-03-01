@@ -79,7 +79,7 @@ export default async function HomePage() {
       <SearchToolbar posts={posts} />
       
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-6 md:py-8">
         {posts.length > 0 ? (
           <PostListWithPagination allPosts={posts} />
         ) : (

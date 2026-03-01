@@ -61,7 +61,7 @@ export default async function ResearchPage() {
       
         <SearchToolbar posts={posts} />
       
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-6 md:py-8 pb-12"  >
           <PostListWithPagination allPosts={posts} />
         </div>
       </ViewModeProvider>

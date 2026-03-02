@@ -21,7 +21,12 @@ export default function Footer() {
 
   const getLinkColor = (path: string) => {
     const active = isActive(path);
-    return active ? '#007AFF' : '#000000';
+    
+    if (theme === 'dark') {
+      return active ? '#FFFFFF' : '#FFFFFF63';
+    } else {
+      return active ? '#007AFF' : '#000000';
+    }
   };
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -77,11 +82,12 @@ export default function Footer() {
                   href="/chapter"
                   onMouseEnter={() => setHoveredLink('/chapter')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors text-[#001F3F] dark:text-grey-500   "
+                  className="transition-colors"
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
+                    color: getLinkColor('/chapter'),
                   }}
                 >
                   Chapter
@@ -92,11 +98,12 @@ export default function Footer() {
                   href="/insights"
                   onMouseEnter={() => setHoveredLink('/insights')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors text-[#001F3F] dark:text-grey-500"
+                  className="transition-colors"
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
+                    color: getLinkColor('/insights'),
                   }}
                 >
                   Insights
@@ -107,11 +114,12 @@ export default function Footer() {
                   href="/research"
                   onMouseEnter={() => setHoveredLink('/research')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors text-[#001F3F] dark:text-grey-500"
+                  className="transition-colors"
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
+                    color: getLinkColor('/research'),
                   }}
                 >
                   Research
@@ -122,11 +130,12 @@ export default function Footer() {
                   href="/white-paper"
                   onMouseEnter={() => setHoveredLink('/white-paper')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors text-[#001F3F] dark:text-grey-500"
+                  className="transition-colors"
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
+                    color: getLinkColor('/white-paper'),
                   }}
                 >
                   White paper

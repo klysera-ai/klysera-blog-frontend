@@ -122,13 +122,12 @@ export default function PostCard({
         {/* Title */}
         <Link href={postUrl}>
           <p 
-            className="py-[15px] hover:opacity-80 transition-opacity"
+            className="py-[15px] text-[#001F3F] dark:text-white transition-colors"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '16px',
               fontWeight: '200',
               lineHeight: '1.5',
-              color: '#001F3F',
             }}
           >
             {post.title}
@@ -140,12 +139,12 @@ export default function PostCard({
           {/* Category Label - Bottom Left */}
           {post.categories.length > 0 && (
             <span 
+            className='text-[#001F3F] dark:text-white   transition-colors'
               style={{
                 fontFamily: 'General Sans, sans-serif',
                 fontSize: '14px',
                 fontWeight: '400',
-                color: '#001F3F',
-              }}
+                }}
             >
               {post.categories[0].name}
             </span>
@@ -153,12 +152,12 @@ export default function PostCard({
 
           {/* Date - Bottom Right */}
           <time 
+          className='text-[#A9A9A9] dark:text-[#A9A9A9]  transition-colors'
             dateTime={post.date}
             style={{
               fontFamily: 'General Sans, sans-serif',
               fontSize: '14px',
               fontWeight: '400',
-              color: '#A9A9A9',
             }}
           >
             {formatDate(post.date, 'd MMM yyyy')}

@@ -118,13 +118,13 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
         <div className="flex justify-center mt-12">
           <button
             onClick={loadMore}
-            className="px-8 py-3 rounded-none transition-colors border-none"
+            className="px-8 py-3 rounded-none 
+            transition-colors border-none bg-[#F0F4F8] text-[#001F3F]
+             dark:bg-[#131414] dark:text-[#FFFFFF]"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '14px',
               fontWeight: '200',
-              backgroundColor: '#DCE5EF',
-              color: '#001F3F',
             }}
           >
             Load More

@@ -58,11 +58,11 @@ export default function Footer() {
               )}
             </Link>
             <p
-              className="text-center md:text-left"
+              className="text-center md:text-left text-[#001F3F] dark:text-white transition-colors"
+
               style={{
                 fontFamily: 'General Sans, sans-serif',
                 fontWeight: '300',
-                color: '#000000',
               }}
             >
               Build Exceptional Products
@@ -77,9 +77,8 @@ export default function Footer() {
                   href="/chapter"
                   onMouseEnter={() => setHoveredLink('/chapter')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className="transition-colors text-[#001F3F] dark:text-grey-500   "
                   style={{ 
-                    color: getLinkColor('/chapter'),
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
@@ -93,9 +92,8 @@ export default function Footer() {
                   href="/insights"
                   onMouseEnter={() => setHoveredLink('/insights')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className="transition-colors text-[#001F3F] dark:text-grey-500"
                   style={{ 
-                    color: getLinkColor('/insights'),
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
@@ -109,9 +107,8 @@ export default function Footer() {
                   href="/research"
                   onMouseEnter={() => setHoveredLink('/research')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className="transition-colors text-[#001F3F] dark:text-grey-500"
                   style={{ 
-                    color: getLinkColor('/research'),
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
@@ -125,9 +122,8 @@ export default function Footer() {
                   href="/white-paper"
                   onMouseEnter={() => setHoveredLink('/white-paper')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className="transition-colors text-[#001F3F] dark:text-grey-500"
                   style={{ 
-                    color: getLinkColor('/white-paper'),
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
@@ -142,12 +138,11 @@ export default function Footer() {
           {/* Right Section - Newsletter */}
           <div className="flex flex-col items-center md:items-start">
             <h3
-              className="text-center md:text-left"
+              className="text-center md:text-left text-[#001F3F] dark:text-white transition-colors"
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '18px',
                 fontWeight: '200',
-                color: '#001F3F',
                 marginBottom: '1.5rem',
               }}
             >
@@ -176,12 +171,11 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 text-white transition-colors w-full md:w-auto"
+                className="px-6 py-3 text-white transition-colors w-full md:w-auto bg-[#007AFF]  dark:bg-[#FFFFFF] border-none dark:text-black"
                 style={{
                   fontFamily: 'General Sans, sans-serif',
                   fontSize: '14px',
                   fontWeight: '200',
-                  backgroundColor: '#007AFF',
                 }}
               >
                 Subscribe

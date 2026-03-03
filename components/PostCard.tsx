@@ -102,7 +102,7 @@ export default function PostCard({
 
   const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
   return (
-    <article style={{ padding: '15px', borderColor: '#DCE5EF', borderWidth: '1px' }} className="group flex flex-col justify-between  bg-white dark:bg-black rounded-none overflow-hidden border dark:border-[#A9A9A94D]">
+    <article style={{ padding: '15px', borderWidth: '1px' }} className="group flex flex-col justify-between  bg-white dark:bg-black rounded-none overflow-hidden border border-[#DCE5EF] dark:border-[#A9A9A94D]">
       {post.featuredImage && (
         <Link href={postUrl}>
           <div className="relative aspect-square w-full overflow-hidden">

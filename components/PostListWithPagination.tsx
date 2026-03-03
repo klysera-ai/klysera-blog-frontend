@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import PostGrid from '@/components/PostGrid';
 import type { Post } from '@/types/wordpress';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
@@ -68,7 +68,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   };
 
   // Reset visible count when search changes
-  useMemo(() => {
+  useEffect(() => {
     setVisibleCount(16);
   }, [searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange]);
 
@@ -111,7 +111,7 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   }
 
   return (
-    <>
+    <div className={!hasMore ? 'pb-24' : ''}>
       <PostGrid posts={visiblePosts} />
       
       {hasMore && (
@@ -131,6 +131,6 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -123,7 +123,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                   className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
                   style={{
                     width: 'calc(50% - 4px)',
-                    left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
+                    left: viewMode === 'grid' ? '4px' : 'calc(50% + 4px)',
                   }}
                 />
                 
@@ -231,7 +231,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               <div
                 className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
                 style={{
-                  width: 'calc(50% - 0px)',
+                  width: 'calc(50% - 4px)',
                   left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
                 }}
               />

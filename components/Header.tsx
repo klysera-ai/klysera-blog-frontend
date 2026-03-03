@@ -161,7 +161,7 @@ export default function Header() {
                     left: theme === 'light' ? '2px' : 'calc(50% + 0px)',
                     top: '2px',
                     bottom: '2px',
-                    backgroundColor: '#DCE5EF',
+                    backgroundColor: theme === 'dark' ? '#FDFCFC21' : '#DCE5EF',
                     borderRadius: '1px',
                   }}
                 />

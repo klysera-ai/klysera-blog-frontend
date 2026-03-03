@@ -44,16 +44,24 @@ export default function Footer() {
           {/* Left Section - Logo and Tagline */}
           <div className="flex flex-col items-center md:items-start">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              {mounted && (
-                <Image
-                  key={theme}
-                  src={theme === 'dark' ? '/images/logo/klysera-logo-dark.svg' : '/images/logo/klysera-logo-light.svg'}
+
+               <Image
+                  src={'/images/logo/klysera-logo-dark.svg'}
                   alt="Klysera Logo"
                   width={120}
                   height={24}
                   style={{ height: '1.5rem', width: 'auto' }}
+                  className="hidden dark:block"
                 />
-              )}
+
+                <Image
+                  src={'/images/logo/klysera-logo-light.svg'}
+                  alt="Klysera Logo"
+                  width={120}
+                  height={24}
+                  style={{ height: '1.5rem', width: 'auto' }}
+                 className="block dark:hidden"
+                />
             </Link>
             <p
               className="text-center md:text-left text-[#001F3F] dark:text-white transition-colors"

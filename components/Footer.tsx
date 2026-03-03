@@ -19,13 +19,13 @@ export default function Footer() {
     return false;
   };
 
-  const getLinkColor = (path: string) => {
+  const getLinkClasses = (path: string) => {
     const active = isActive(path);
     
-    if (theme === 'dark') {
-      return active ? '#FFFFFF' : '#FFFFFF63';
+    if (active) {
+      return 'text-[#007AFF] dark:text-white';
     } else {
-      return active ? '#007AFF' : '#000000';
+      return 'text-black dark:text-[#FFFFFF63]';
     }
   };
 
@@ -38,15 +38,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
-      <style jsx>{`
-        footer {
-          --footer-link-color: ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? '#FFFFFF63' : 'currentColor'};
-          --footer-border-color: ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? '#FFFFFF63' : '#e5e7eb'};
-          --footer-text-color: ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? '#FFFFFF63' : '#6b7280'};
-          --footer-input-color: ${typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? '#FFFFFF63' : 'currentColor'};
-        }
-      `}</style>
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Left Section - Logo and Tagline */}
@@ -82,12 +74,11 @@ export default function Footer() {
                   href="/chapter"
                   onMouseEnter={() => setHoveredLink('/chapter')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className={`transition-colors ${getLinkClasses('/chapter')}`}
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
-                    color: getLinkColor('/chapter'),
                   }}
                 >
                   Chapter
@@ -98,12 +89,11 @@ export default function Footer() {
                   href="/insights"
                   onMouseEnter={() => setHoveredLink('/insights')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className={`transition-colors ${getLinkClasses('/insights')}`}
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
-                    color: getLinkColor('/insights'),
                   }}
                 >
                   Insights
@@ -114,12 +104,11 @@ export default function Footer() {
                   href="/research"
                   onMouseEnter={() => setHoveredLink('/research')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className={`transition-colors ${getLinkClasses('/research')}`}
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
-                    color: getLinkColor('/research'),
                   }}
                 >
                   Research
@@ -130,12 +119,11 @@ export default function Footer() {
                   href="/white-paper"
                   onMouseEnter={() => setHoveredLink('/white-paper')}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="transition-colors"
+                  className={`transition-colors ${getLinkClasses('/white-paper')}`}
                   style={{ 
                     fontFamily: 'General Sans, sans-serif',
                     fontSize: '16px',
                     fontWeight: '200',
-                    color: getLinkColor('/white-paper'),
                   }}
                 >
                   White paper
@@ -171,10 +159,8 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
                 required
-                className="px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none focus:ring-0 bg-white dark:bg-black text-gray-900 dark:text-white border md:border-0"
+                className="px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none focus:ring-0 bg-white dark:bg-black text-gray-900 dark:text-[#FFFFFF63] border md:border-0 border-[#CFDDE8]"
                 style={{ 
-                  color: 'var(--footer-input-color, currentColor)',
-                  borderColor: '#CFDDE8',
                    fontSize: '14px',
                 }}
               />
@@ -194,10 +180,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section - Copyright and Social */}
-        <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--footer-border-color, #e5e7eb)' }}>
-          <p className="text-gray-500 text-sm" style={{ color: 'var(--footer-text-color, currentColor)',
-            fontWeight:200,
-           }}>
+        <div className="pt-8 border-t border-gray-200 dark:border-[#FFFFFF63] flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-500 dark:text-[#FFFFFF63] text-sm font-light">
             © {currentYear} Kylsera. All rights reserved
           </p>
           

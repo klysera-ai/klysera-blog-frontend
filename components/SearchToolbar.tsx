@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useTheme } from '@/hooks/useTheme';
 import { useViewMode } from '@/contexts/ViewModeContext';
 import { useSearchFilter } from '@/contexts/SearchFilterContext';
 import FilterModal from './FilterModal';
@@ -19,7 +18,6 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   const filterButtonRefDesktop = useRef<HTMLButtonElement>(null);
   const { searchQuery, setSearchQuery, selectedCategories, setSelectedCategories, selectedAuthors, setSelectedAuthors } = useSearchFilter();
   const { viewMode, toggleViewMode, mounted } = useViewMode();
-  const { theme } = useTheme();
 
   // Extract unique authors from posts
   const uniqueAuthors = Array.from(
@@ -83,13 +81,9 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 onChange={(e) => setLocalSearch(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
-                className="w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-2 focus:ring-blue-600"
-                style={{
-                  fontFamily: 'General Sans, sans-serif',
-                  fontSize: '16px',
-                  border: isSearchFocused ? '1px solid #DCE5EF' : '1px solid #DCE5EF',
-                  color: isSearchFocused ? '#000000' : '#DCE5EF',
-                }}
+                className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-2 focus:ring-[#B9CCDF] border border-[#DCE5EF] text-base font-['General_Sans',sans-serif] ${
+                  isSearchFocused ? 'text-black dark:text-white' : 'text-[#DCE5EF]'
+                }`}
               />
               {localSearch && (
                 <button
@@ -126,12 +120,10 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000] flex-1" >
                 {/* Animated Sliding Background */}
                 <div
-                  className="absolute top-1 bottom-1 transition-all duration-300 ease-out"
+                  className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
                   style={{
                     width: 'calc(50% - 4px)',
                     left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
-                    backgroundColor: theme === 'dark' ? '#FDFCFC1A' : '#FFFFFF',
-                    borderRadius: '1px',
                   }}
                 />
                 
@@ -198,13 +190,9 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               onChange={(e) => setLocalSearch(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              className="w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-2 focus:ring-blue-600"
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontSize: '16px',
-                border: isSearchFocused ? '1px solid #DCE5EF' : '1px solid #DCE5EF',
-                color: isSearchFocused ? '#000000' : '#DCE5EF',
-              }}
+              className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] border border-[#DCE5EF] text-base font-['General_Sans',sans-serif] ${
+                isSearchFocused ? 'text-black dark:text-white' : 'text-[#DCE5EF]'
+              }`}
             />
             {localSearch && (
               <button
@@ -241,12 +229,10 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000]">
               {/* Animated Sliding Background */}
               <div
-                className="absolute top-1 bottom-1 transition-all duration-300 ease-out"
+                className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
                 style={{
                   width: 'calc(50% - 0px)',
                   left: viewMode === 'grid' ? '4px' : 'calc(50% + 0px)',
-                  backgroundColor: theme === 'dark' ? '#FDFCFC1A' : '#FFFFFF',
-                  borderRadius: '1px',
                 }}
               />
               

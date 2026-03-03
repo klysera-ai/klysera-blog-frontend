@@ -37,12 +37,11 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
         />
         {/* Main post content container */}
         <div 
-          className="max-w-[976px] mx-auto px-4"
-          style={{
-            backgroundColor: !readMode ? 'transparent' : '#F9F9F9',
-            borderLeft: !readMode ? '1px solid rgba(0, 0, 0, 0.1)' : 'none',
-            borderRight: !readMode ? '1px solid rgba(0, 0, 0, 0.1)' : 'none',
-          }}
+          className={`max-w-[976px] mx-auto px-4 ${
+            readMode 
+              ? 'bg-[#F9F9F9] dark:bg-[#1C1C1E]' 
+              : 'bg-transparent border-l border-r border-black/10 dark:border-white/20'
+          }`}
         >
           <h1
             className={`text-center text-black dark:text-white pt-11 pb-[26px] px-[26px] md:px-[30px] lg:px-[56px] ${

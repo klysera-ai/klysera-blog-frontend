@@ -21,23 +21,23 @@ export default function PostCard({
   const excerpt = stripHtml(post.excerpt);
 
   // Calculate colors for list view based on hover state
-  const getTitleColor = () => {
+  const getListItemClasses = () => {
     if (viewMode !== 'list' || !onHover) {
-      return theme === 'dark' ? '#FFFFFF' : '#000000';
+      return 'text-black dark:text-white';
     }
 
     const isThisHovered = hoveredPostId === post.id;
     const isAnyHovered = hoveredPostId !== null;
 
-    if (theme === 'dark') {
-      if (isThisHovered) return '#FFFFFF';
-      if (isAnyHovered) return '#FFFFFF63';
-      return '#FFFFFF';
-    } else {
-      if (isThisHovered) return '#000000';
-      if (isAnyHovered) return '#8E8E93';
-      return '#000000';
+    if (isThisHovered) {
+      return 'text-black dark:text-white';
     }
+    
+    if (isAnyHovered) {
+      return 'text-[#8E8E93] dark:text-[#FFFFFF63]';
+    }
+    
+    return 'text-black dark:text-white';
   };
 
   if (viewMode === 'list') {
@@ -54,13 +54,12 @@ export default function PostCard({
           {/* Title */}
           <Link href={postUrl} className="flex-1">
             <h2 
-              className="transition-colors"
+              className={`transition-colors ${getListItemClasses()}`}
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '22px',
                 fontWeight: '200',
                 lineHeight: '1.3',
-                color: getTitleColor(),
               }}
             >
               {post.title}
@@ -70,12 +69,12 @@ export default function PostCard({
           {/* Category */}
           {post.categories.length > 0 && (
             <span 
+              className={`${getListItemClasses()}`}
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '14px',
                 fontWeight: '200',
                 whiteSpace: 'nowrap',
-                color: getTitleColor(),
               }}
             >
               {post.categories[0].name}
@@ -85,13 +84,13 @@ export default function PostCard({
           {/* Date */}
           <time 
             dateTime={post.date}
+            className={getListItemClasses()}
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '14px',
               fontWeight: '200',
               whiteSpace: 'nowrap',
               textAlign:'left',
-              color: getTitleColor(),
             }}
           >
             {formatDate(post.date)}

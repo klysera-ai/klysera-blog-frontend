@@ -15,12 +15,27 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      if (!isMobileMenuOpen) {
+        setIsScrolled(window.scrollY > 0);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -56,14 +71,14 @@ export default function Header() {
   return (
     <header 
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled 
+        (isScrolled && !isMobileMenuOpen)
           ? 'shadow-sm' 
           : 'bg-white dark:bg-black'
       }`} 
       style={{
         height: '70px',
-        ...(isScrolled && {
-          backgroundColor: '#FFFFFF1A',
+        ...((isScrolled && !isMobileMenuOpen) && {
+          backgroundColor: '#FFFFFF80',
           backdropFilter: 'blur(8.486668586730957px)',
           WebkitBackdropFilter: 'blur(8.486668586730957px)',
         }),
@@ -197,7 +212,7 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-[70px] bg-white dark:bg-gray-900 z-40">
+          <div className="md:hidden fixed inset-0 top-[70px] bg-white dark:bg-black z-40 overflow-y-auto">
             <div className="flex flex-col items-center p-6 space-y-8">
               <Link
                 href="/insights"

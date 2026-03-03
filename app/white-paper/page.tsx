@@ -60,6 +60,10 @@ export default async function WhitePaperPage() {
         />
       
         <SearchToolbar posts={posts} />
+      
+        <div className="container mx-auto px-4 py-6 md:py-8 pb-12"  >
+          <PostListWithPagination allPosts={posts} />
+        </div>
       </ViewModeProvider>
     </SearchFilterProvider>
   );

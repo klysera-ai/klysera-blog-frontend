@@ -46,6 +46,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-4">
               {mounted && (
                 <Image
+                  key={theme}
                   src={theme === 'dark' ? '/images/logo/klysera-logo-dark.svg' : '/images/logo/klysera-logo-light.svg'}
                   alt="Klysera Logo"
                   width={120}

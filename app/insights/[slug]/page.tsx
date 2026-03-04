@@ -5,7 +5,6 @@ import type { Metadata } from 'next';
 import { Clock, User } from 'lucide-react';
 import { getPostBySlug, getPostSlugsByCategorySlug } from '@/lib/wordpress';
 import { formatDate, getReadingTime } from '@/lib/utils';
-import TableOfContents from '@/components/TableOfContents';
 import { getDummyPostBySlug } from '@/lib/dummy-posts';
 import PostPageClient from '@/components/PostPageClient';
 

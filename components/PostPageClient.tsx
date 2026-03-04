@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Clock } from 'lucide-react';
 import BlogToolbar from './BlogToolbar';
-import TableOfContents from './TableOfContents';
+import PageRuler from './PageRuler';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import type { Post } from '@/types/wordpress';
 
@@ -22,7 +22,7 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
   const toggleReadMode = () => setReadMode(!readMode);
 
   return (
-    <article className="bg-white dark:bg-black min-h-screen flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-24 px-2 md:px-10 md:px-6 lg:px-12 py-10 lg:py-16 xl:py-24">
+    <article className="relative bg-white dark:bg-black min-h-screen flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-24 px-2 md:px-10 md:px-6 lg:px-12 py-10 lg:py-16 xl:py-24">
       {/* 200px empty container */}
       <div style={{ width: '200px' }}></div>
       <div className="main-blog-content-container">
@@ -135,10 +135,8 @@ export default function PostPageClient({ post, parentPage, parentHref }: PostPag
         </div>
       </div>
 
-      {/* Add the Table of Content */}
-          <div className="hidden lg:block sticky top-24 h-fit" style={{ width: 200 }}>
-            {!readMode && <TableOfContents content={post.content} />}
-          </div>
+      {/* Add the PageRuler */}
+      {!readMode && <PageRuler contentSelector=".post-content" />}
     </article>
   );
 }

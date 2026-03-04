@@ -156,9 +156,8 @@ export default function Footer() {
             </h3>
             <form 
               onSubmit={handleSubscribe} 
-              className="flex flex-col md:flex-row w-full justify-between border-0 md:border"
+              className="flex flex-col md:flex-row w-full justify-between border-0 md:border md:border-[#DCE5EF] md:dark:border-[#FDFCFC66]"
               style={{ 
-                borderColor: '#CFDDE8',
                 padding: '5px',
               }}
             >
@@ -168,7 +167,7 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
                 required
-                className="px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none focus:ring-0 bg-white dark:bg-black text-gray-900 dark:text-[#FFFFFF63] border md:border-0 border-[#CFDDE8]"
+                className="px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] bg-white dark:bg-black text-black dark:text-white placeholder:text-black dark:placeholder:text-[#FFFFFF59] border md:border-0 border-[#DCE5EF] dark:border-[#FDFCFC66]"
                 style={{ 
                    fontSize: '14px',
                 }}

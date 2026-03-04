@@ -57,7 +57,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             {/* Search Input - Full width on mobile */}
             <div className="relative w-full">
               <svg 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black dark:text-white"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black dark:text-[#FFFFFF59]"
                 width="26" 
                 height="26" 
                 viewBox="0 0 26 26" 
@@ -81,8 +81,8 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 onChange={(e) => setLocalSearch(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onBlur={() => setIsSearchFocused(false)}
-                className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-2 focus:ring-[#B9CCDF] border border-[#DCE5EF] text-base font-['General_Sans',sans-serif] ${
-                  isSearchFocused ? 'text-black dark:text-white' : 'text-[#DCE5EF]'
+                className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-2 focus:ring-[#B9CCDF] border border-[#DCE5EF] text-base font-['General_Sans',sans-serif] placeholder:text-black dark:placeholder:text-[#FFFFFF59] ${
+                  isSearchFocused ? 'text-black dark:text-white' : 'text-[#DCE5EF] dark:text-[#FFFFFF59]'
                 }`}
               />
               {localSearch && (
@@ -166,7 +166,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
           {/* Search Input */}
           <div className="flex-1 max-w-md relative">
             <svg 
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black dark:text-white"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black dark:text-[#FFFFFF59]"
               width="26" 
               height="26" 
               viewBox="0 0 26 26" 
@@ -190,8 +190,8 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               onChange={(e) => setLocalSearch(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] border border-[#DCE5EF] text-base font-['General_Sans',sans-serif] ${
-                isSearchFocused ? 'text-black dark:text-white' : 'text-[#DCE5EF]'
+              className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] border border-[#DCE5EF] dark:border-[#FDFCFC66] text-base font-['General_Sans',sans-serif] placeholder:text-black dark:placeholder:text-[#FFFFFF59] ${
+                isSearchFocused ? 'text-black dark:text-white' : 'text-[#000000] dark:text-[#FFFFFF59]'
               }`}
             />
             {localSearch && (

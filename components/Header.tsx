@@ -78,7 +78,7 @@ export default function Header() {
       style={{
         height: '70px',
         ...((isScrolled && !isMobileMenuOpen) && {
-          backgroundColor: '#FFFFFF80',
+          backgroundColor: theme === 'dark' ? '#00000080' : '#FFFFFF80',
           backdropFilter: 'blur(8.486668586730957px)',
           WebkitBackdropFilter: 'blur(8.486668586730957px)',
         }),

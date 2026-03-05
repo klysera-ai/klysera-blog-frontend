@@ -103,7 +103,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               <button
                 ref={filterButtonRefMobile}
                 onClick={() => setIsFilterOpen(true)}
-                className="relative p-3 rounded-none border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+                className="relative p-3 rounded-none border border-[#DCE5EF] dark:border-[#FDFCFC21] hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
                 aria-label="Filter"
               >
                 <svg width="17.1" height="17.1" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
@@ -117,7 +117,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               </button>
 
               {/* Grid/List Toggle */}
-              <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000] flex-1" >
+              <div className="relative flex items-center border border-[#DCE5EF] dark:border-[#FDFCFC21] rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000] flex-1" >
                 {/* Animated Sliding Background */}
                 <div
                   className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
@@ -190,7 +190,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               onChange={(e) => setLocalSearch(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] border border-[#DCE5EF] dark:border-[#FDFCFC66] text-base font-['General_Sans',sans-serif] placeholder:text-black dark:placeholder:text-[#FFFFFF59] ${
+              className={`w-full pl-12 pr-12 py-3 bg-transparent rounded-none focus:outline-none focus:ring-1 focus:ring-[#B9CCDF] border border-[#DCE5EF] dark:border-[#FDFCFC21] text-base font-['General_Sans',sans-serif] placeholder:text-black dark:placeholder:text-[#FFFFFF59] ${
                 isSearchFocused ? 'text-black dark:text-white' : 'text-[#000000] dark:text-[#FFFFFF59]'
               }`}
             />
@@ -212,7 +212,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             <button
               ref={filterButtonRefDesktop}
               onClick={() => setIsFilterOpen(true)}
-              className="relative p-3 rounded-none border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+              className="relative p-3 rounded-none border border-[#DCE5EF] dark:border-[#FDFCFC21] hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
               aria-label="Filter"
             >
               <svg width="17.1" height="17.1" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
@@ -226,7 +226,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
             </button>
 
             {/* Grid/List Toggle */}
-            <div className="relative flex items-center border border-gray-300 dark:border-gray-700 rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000]">
+            <div className="relative flex items-center border border-[#DCE5EF] dark:border-[#FDFCFC21] rounded-none p-1 bg-[#DCE5EF] dark:bg-[#000]">
               {/* Animated Sliding Background */}
               <div
                 className="absolute top-1 bottom-1 transition-all duration-300 ease-out bg-white dark:bg-[#FDFCFC1A] rounded-[1px]"
@@ -274,7 +274,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
 
       {/* Active Filters Display */}
       {activeFiltersCount > 0 && (
-        <div className="w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="w-full bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-[#FDFCFC21]">
           <div className="container mx-auto px-4 py-3 flex items-center gap-2 flex-wrap">
             <span 
               className="text-gray-600 dark:text-gray-400"

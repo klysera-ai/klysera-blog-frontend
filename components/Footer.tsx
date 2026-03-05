@@ -37,7 +37,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
+    <footer className="border-t border-[#DCE5EF] dark:border-[#FDFCFC21]  bg-white dark:bg-black">
       <div className="container mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -189,8 +189,11 @@ export default function Footer() {
           </div>
         </div>
 
+      </div>
+
         {/* Bottom Section - Copyright and Social */}
-        <div className="pt-8 border-t border-gray-200 dark:border-[#FFFFFF63] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="border-t border-[#DCE5EF] dark:border-[#FDFCFC21]"></div>
+        <div className="container pt-8  pb-10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 dark:text-[#FFFFFF63] text-sm font-light">
             © {currentYear} Kylsera. All rights reserved
           </p>
@@ -239,7 +242,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-      </div>
     </footer>
   );
 }

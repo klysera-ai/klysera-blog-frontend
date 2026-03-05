@@ -8,7 +8,7 @@ interface InnerPageHeroProps {
 export default function InnerPageHero({ title, description }: InnerPageHeroProps) {
   return (
     <div 
-      className="w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800"
+      className="w-full bg-white dark:bg-black"
       style={{ height: '380px' }}
     >
       <div className="container mx-auto px-4 h-full flex items-center">

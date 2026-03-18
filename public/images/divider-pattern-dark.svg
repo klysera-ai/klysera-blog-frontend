@@ -1,0 +1,16 @@
+<svg width="1201" height="32" viewBox="0 0 1201 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<mask id="path-1-inside-1_1001_22764" fill="white">
+<path d="M0 0H1201V32H0V0Z"/>
+</mask>
+<path d="M0 0H1201V32H0V0Z" fill="url(#pattern0_1001_22764)"/>
+<path d="M1201 32V32.5H1201.5V32H1201ZM0 32H-0.5V32.5H0V32ZM1201 0H1200.5V32H1201H1201.5V0H1201ZM1201 32V31.5H0V32V32.5H1201V32ZM0 32H0.5V0H0H-0.5V32H0Z" fill="#CFDDE8" fill-opacity="0.16" mask="url(#path-1-inside-1_1001_22764)"/>
+<defs>
+<pattern id="pattern0_1001_22764" patternUnits="userSpaceOnUse" patternTransform="matrix(10.8125 0 0 6.2426 -0.07 -0.121235)" preserveAspectRatio="none" viewBox="-1 -1.73193 154.464 89.18" width="1" height="1">
+<use xlink:href="#pattern0_1001_22764_inner" transform="translate(-154.464 -89.18)"/>
+<use xlink:href="#pattern0_1001_22764_inner" transform="translate(0 -89.18)"/>
+<use xlink:href="#pattern0_1001_22764_inner" transform="translate(-154.464 0)"/>
+<g id="pattern0_1001_22764_inner">
+<line x1="-0.5" y1="97.134" x2="169.241" y2="-0.866025" stroke="#CFDDE8" stroke-opacity="0.16" stroke-width="2"/>
+</g>
+</pattern></defs>
+</svg>

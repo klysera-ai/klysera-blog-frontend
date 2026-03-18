@@ -4,6 +4,9 @@ import SearchToolbar from '@/components/SearchToolbar';
 import { ViewModeProvider } from '@/contexts/ViewModeContext';
 import { SearchFilterProvider } from '@/contexts/SearchFilterContext';
 import PostListWithPagination from '@/components/PostListWithPagination';
+import Hero from '@/components/Hero';
+import Divider from '@/components/Divider';
+import Newsletter from '@/components/Newsletter';
 
 export const metadata = {
   title: 'Klyseria - Home',
@@ -73,15 +76,23 @@ export default async function HomePage() {
     <SearchFilterProvider>
       <ViewModeProvider>
         {/* Hero Section */}
-        <HeroSection posts={heroPosts} />
+        <Divider  />  
+        <Hero posts={posts} />
+        <Divider  />  
       
-      {/* Search Toolbar */}
-      <SearchToolbar posts={posts} />
+     
       
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-6 md:py-8">
+      <section className="container">
+      <div className="mx-auto px-[40px] sm:px-[16px] lg:px-[40px] sm:py-[56px] py-[120px] lg:py-[120px] 
+            border-r-[0.5px] border-l-[0.5px] border-[#B1B9C8] 
+            dark:border-[#0557AD]">
+           {/* Search Toolbar */}
+          <SearchToolbar posts={posts} />
         {posts.length > 0 ? (
+          <div className="mt-[64px]">      
           <PostListWithPagination allPosts={posts} />
+          </div>  
         ) : (
           <div className="text-center py-20">
             <svg
@@ -101,9 +112,16 @@ export default async function HomePage() {
             <p className="text-gray-600 dark:text-gray-400">
               Configure your WordPress API URL in the environment variables.
             </p>
-          </div>
-        )}
+          </div> 
+        )} 
       </div>
+      </section>
+      <Divider  />  
+      
+      {/* Newsletter Section */}
+      <Newsletter />
+      <Divider  />  
+      
       </ViewModeProvider>
     </SearchFilterProvider>
   );

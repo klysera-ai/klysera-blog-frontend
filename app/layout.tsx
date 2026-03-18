@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-white dark:bg-[#001F3F]`}>
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-1" style={{ paddingTop: '70px' }}>{children}</main>

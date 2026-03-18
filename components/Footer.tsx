@@ -2,246 +2,142 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { useTheme } from '@/hooks/useTheme';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState('');
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const pathname = usePathname();
-  const { theme, mounted } = useTheme();
 
-  const isActive = (path: string) => {
-    if (path === '/' && pathname === '/') return true;
-    if (path !== '/' && pathname.startsWith(path)) return true;
-    return false;
-  };
-
-  const getLinkClasses = (path: string) => {
-    const active = isActive(path);
+  const navigationColumns = [
+    {
+      title: 'Solutions',
+      links: [
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Solutions', href: '/solutions' },
+         { label: 'Resources', href: '/resources' },
+        { label: 'Resources', href: '/resources' },
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        { label: 'Resources', href: '/resources' },
+        { label: 'Resources', href: '/resources' },
+        { label: 'Solutions', href: '/solutions ' },
+        { label: 'Solution', href: '/solutions' },
+      ]
+    },
+    {
+      title: 'Solutions',
+      links: [
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Solutions', href: '/solutions' },
+        { label: 'Resources', href: '/resources' },
+        { label: 'Resources', href: '/resources' },
+      ]
+    },
+  
     
-    if (active) {
-      return 'text-[#007AFF] dark:text-white';
-    } else {
-      return 'text-black dark:text-[#FFFFFF63]';
-    }
-  };
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Subscribe email:', email);
-    alert('Thank you for subscribing!');
-    setEmail('');
-  };
+  ];
 
   return (
-    <footer className="border-t border-[#DCE5EF] dark:border-[#FDFCFC21]  bg-white dark:bg-black">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="bg-[#F0F4F8] dark:bg-[#02356B] mt-12 sm:mt-16 lg:mt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Left Section - Logo and Tagline */}
-          <div className="flex flex-col items-center md:items-start">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-
-               <Image
-                  src={'/images/logo/klysera-logo-dark.svg'}
-                  alt="Klysera Logo"
-                  width={120}
-                  height={24}
-                  style={{ height: '1.5rem', width: 'auto' }}
-                  className="hidden dark:block"
-                />
-
+        <div className="pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-12 lg:pb-15">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-12">
+            {/* Logo - Left */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="inline-block">
                 <Image
                   src={'/images/logo/klysera-logo-light.svg'}
                   alt="Klysera Logo"
-                  width={120}
+                  width={150}
                   height={24}
-                  style={{ height: '1.5rem', width: 'auto' }}
-                 className="block dark:hidden"
+                  className="h-6 w-auto dark:hidden"
                 />
-            </Link>
-            <p
-              className="text-center md:text-left text-[#001F3F] dark:text-white transition-colors"
+                <Image
+                  src={'/images/logo/klysera-logo-dark.svg'}
+                  alt="Klysera Logo"
+                  width={150}
+                  height={24}
+                  className="h-6 w-auto hidden dark:block"
+                />
+              </Link>
+            </div>
 
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontWeight: '300',
-              }}
-            >
-              Build Exceptional Products
-            </p>
-          </div>
+            {/* Navigation Columns - Middle */}
+            <div className="flex justify-between flex-row gap-8 lg:gap-12">
+              {navigationColumns.map((column, idx) => (
+                <div key={idx}>
+                  <ul className="space-y-3">
+                    {column.links.map((link, linkIdx) => (
+                      <li key={linkIdx}>
+                        <Link
+                          href={link.href}
+                          className="text-[#444E60] dark:text-[#CFDDE8] hover:text-[#001F3F] dark:hover:text-[#FFFFFF] transition-colors font-['General_Sans'] text-sm font-normal"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
 
-          {/* Middle Section - Navigation Links */}
-          <div className="flex justify-center md:justify-start">
-            <ul className="space-y-4 text-center md:text-left">
-              <li>
-                <Link
-                  href="/chapter"
-                  onMouseEnter={() => setHoveredLink('/chapter')}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className={`transition-colors ${getLinkClasses('/chapter')}`}
-                  style={{ 
-                    fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '200',
-                  }}
-                >
-                  Chapter
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/insights"
-                  onMouseEnter={() => setHoveredLink('/insights')}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className={`transition-colors ${getLinkClasses('/insights')}`}
-                  style={{ 
-                    fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '200',
-                  }}
-                >
-                  Insights
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/research"
-                  onMouseEnter={() => setHoveredLink('/research')}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className={`transition-colors ${getLinkClasses('/research')}`}
-                  style={{ 
-                    fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '200',
-                  }}
-                >
-                  Research
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/white-paper"
-                  onMouseEnter={() => setHoveredLink('/white-paper')}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className={`transition-colors ${getLinkClasses('/white-paper')}`}
-                  style={{ 
-                    fontFamily: 'General Sans, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '200',
-                  }}
-                >
-                  White paper
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Right Section - Newsletter */}
-          <div className="flex flex-col items-center md:items-start">
-            <h3
-              className="text-center md:text-left text-[#001F3F] dark:text-white transition-colors"
-              style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '18px',
-                fontWeight: '200',
-                marginBottom: '1.5rem',
-              }}
-            >
-              Subscribe to our Newsletter
-            </h3>
-            <form 
-              onSubmit={handleSubscribe} 
-              className="flex flex-col md:flex-row w-full justify-between border-0 md:border md:border-[#DCE5EF] md:dark:border-[#FDFCFC66] md:gap-2"
-              style={{ 
-                padding: '5px',
-              }}
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your Email"
-                required
-                className="flex-1 px-2 py-2 mb-2.5 md:mb-0 text-center md:text-left focus:outline-none  bg-white dark:bg-black text-[#999999] dark:text-[#999999] placeholder:text-[#999999] dark:placeholder:text-[#999999] border md:border-0 border-[#DCE5EF] dark:border-[#FDFCFC66]"
-                style={{ 
-                   fontSize: '14px',
-                   fontWeight: '200',
-                  fontFamily: 'General Sans, sans-serif',   
-                }}
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 text-white transition-colors w-full md:w-auto bg-[#007AFF]  dark:bg-[#FFFFFF] border-none dark:text-black"
-                style={{
-                  fontFamily: 'General Sans, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: '200',
-                }}
-              >
-                Subscribe
-              </button>
-            </form>
+            
           </div>
         </div>
 
-      </div>
-
-        {/* Bottom Section - Copyright and Social */}
-        <div className="border-t border-[#DCE5EF] dark:border-[#FDFCFC21]"></div>
-        <div className="container pt-8  pb-10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 dark:text-[#FFFFFF63] text-sm font-light">
-            © {currentYear} Kylsera. All rights reserved
+        {/* Bottom Section - Copyright */}
+        <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between pt-10 sm:pt-12 lg:pt-15 pb-12 sm:pb-16 lg:pb-20">
+          <p className="text-[#444E60] dark:text-[#CFDDE8] text-sm font-['General_Sans'] font-normal">
+            © {currentYear} Klysera. All rights reserved.
           </p>
-          
-          {/* Social Media Icons */}
-          <div className="flex" style={{ gap: '0.6rem' }}>
-            <a
-              href="#"
-              className="hover:opacity-80 transition-opacity"
-              aria-label="Instagram"
-            >
-              <svg width="32" height="34" viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="15.7968" cy="15.7968" r="15.4871" stroke="#001F3F" strokeWidth="0.619483" className="dark:stroke-white"/>
-                <path fillRule="evenodd" clipRule="evenodd" d="M15.7927 7.79443C13.6194 7.79443 13.3474 7.80404 12.4936 7.84244C11.6422 7.88165 11.0605 8.01688 10.5516 8.21452C10.0175 8.41521 9.53356 8.73007 9.13369 9.13711C8.72665 9.53698 8.4118 10.0209 8.2111 10.555C8.01346 11.0639 7.87823 11.6456 7.83903 12.497C7.79982 13.3508 7.79102 13.6228 7.79102 15.7961C7.79102 17.9693 7.79982 18.2414 7.83903 19.0952C7.87823 19.9465 8.01346 20.5283 8.2111 21.0372C8.4118 21.5713 8.72665 22.0552 9.13369 22.4551C9.53356 22.8621 10.0175 23.177 10.5516 23.3777C11.0605 23.5753 11.6422 23.7105 12.4936 23.7497C13.3474 23.7881 13.6194 23.7977 15.7927 23.7977C17.9659 23.7977 18.238 23.7881 19.0917 23.7497C19.9431 23.7105 20.5248 23.5753 21.0338 23.3777C21.5679 23.177 22.0518 22.8621 22.4516 22.4551C22.8587 22.0552 23.1735 21.5713 23.3742 21.0372C23.5719 20.5283 23.7071 19.9465 23.7463 19.0952C23.7847 18.2414 23.7943 17.9693 23.7943 15.7961C23.7943 13.6228 23.7847 13.3508 23.7463 12.497C23.7071 11.6456 23.5719 11.0639 23.3742 10.555C23.1735 10.0209 22.8587 9.53698 22.4516 9.13711C22.0518 8.73007 21.5679 8.41521 21.0338 8.21452C20.5248 8.01688 19.9431 7.88165 19.0917 7.84244C18.238 7.80404 17.9659 7.79443 15.7927 7.79443ZM15.7927 9.23633C17.9291 9.23633 18.182 9.24433 19.0253 9.28274C19.8063 9.31875 20.2296 9.44838 20.512 9.558C20.8849 9.70363 21.1522 9.87726 21.4322 10.1565C21.7123 10.4366 21.8851 10.7038 22.0308 11.0767C22.1396 11.3592 22.2708 11.7825 22.306 12.5626C22.3444 13.4068 22.3524 13.6588 22.3524 15.7961C22.3524 17.9325 22.3444 18.1854 22.306 19.0288C22.27 19.8097 22.1396 20.233 22.0308 20.5155C21.9025 20.863 21.698 21.1775 21.4322 21.4357C21.1522 21.7157 20.8849 21.8885 20.512 22.0342C20.2296 22.143 19.8063 22.2742 19.0261 22.3094C18.1828 22.3478 17.9299 22.3558 15.7927 22.3558C13.6562 22.3558 13.4026 22.3478 12.56 22.3094C11.779 22.2734 11.3558 22.143 11.0733 22.0342C10.7257 21.9059 10.4113 21.7014 10.1531 21.4357C9.88738 21.1775 9.68286 20.863 9.55458 20.5155C9.44496 20.233 9.31453 19.8097 9.27932 19.0296C9.24092 18.1854 9.23291 17.9333 9.23291 15.7961C9.23291 13.6596 9.24092 13.4068 9.27932 12.5634C9.31533 11.7825 9.44496 11.3592 9.55458 11.0767C9.70021 10.7038 9.87385 10.4366 10.1531 10.1565C10.4332 9.87646 10.7004 9.70363 11.0733 9.558C11.3558 9.44838 11.779 9.31795 12.5592 9.28274C13.4034 9.24433 13.6554 9.23633 15.7927 9.23633ZM15.7927 18.463C15.0853 18.463 14.407 18.1821 13.9068 17.6819C13.4067 17.1818 13.1257 16.5034 13.1257 15.7961C13.1257 15.0888 13.4067 14.4104 13.9068 13.9103C14.407 13.4101 15.0853 13.1291 15.7927 13.1291C16.5 13.1291 17.1783 13.4101 17.6785 13.9103C18.1786 14.4104 18.4596 15.0888 18.4596 15.7961C18.4596 16.5034 18.1786 17.1818 17.6785 17.6819C17.1783 18.1821 16.5 18.463 15.7927 18.463ZM15.7927 11.6872C15.2531 11.6872 14.7188 11.7935 14.2203 12C13.7218 12.2065 13.2688 12.5092 12.8873 12.8907C12.5057 13.2722 12.2031 13.7252 11.9966 14.2237C11.7901 14.7222 11.6838 15.2565 11.6838 15.7961C11.6838 16.3357 11.7901 16.87 11.9966 17.3685C12.2031 17.867 12.5057 18.3199 12.8873 18.7015C13.2688 19.083 13.7218 19.3857 14.2203 19.5922C14.7188 19.7987 15.2531 19.9049 15.7927 19.9049C16.8824 19.9049 17.9275 19.472 18.6981 18.7015C19.4686 17.9309 19.9015 16.8858 19.9015 15.7961C19.9015 14.7064 19.4686 13.6613 18.6981 12.8907C17.9275 12.1201 16.8824 11.6872 15.7927 11.6872ZM21.0241 11.5248C21.0241 11.6509 20.9993 11.7758 20.9511 11.8923C20.9028 12.0088 20.8321 12.1146 20.7429 12.2038C20.6538 12.2929 20.5479 12.3637 20.4314 12.4119C20.3149 12.4602 20.19 12.485 20.064 12.485C19.9379 12.485 19.813 12.4602 19.6965 12.4119C19.58 12.3637 19.4742 12.2929 19.385 12.2038C19.2958 12.1146 19.2251 12.0088 19.1768 11.8923C19.1286 11.7758 19.1038 11.6509 19.1038 11.5248C19.1038 11.2701 19.2049 11.0259 19.385 10.8458C19.5651 10.6658 19.8093 10.5646 20.064 10.5646C20.3186 10.5646 20.5628 10.6658 20.7429 10.8458C20.923 11.0259 21.0241 11.2701 21.0241 11.5248Z" fill="#001F3F" className="dark:fill-white"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="hover:opacity-80 transition-opacity"
-              aria-label="X (Twitter)"
-            >
-              <svg width="32" height="34" viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="15.7968" cy="15.7968" r="15.4871" stroke="#001F3F" strokeWidth="0.619483" className="dark:stroke-white"/>
-                <path d="M16.6403 15.0824L21.1174 9.98999H20.0565L16.169 14.4116L13.0641 9.98999H9.48291L14.1782 16.6763L9.48291 22.0165H10.5439L14.6492 17.3471L17.9282 22.0165H21.5094L16.6403 15.0824ZM15.1871 16.7352L14.7114 16.0694L10.9262 10.7715H12.5558L15.6105 15.0471L16.0863 15.7129L20.057 21.2705H18.4274L15.1871 16.7352Z" fill="#001F3F" className="dark:fill-white"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="hover:opacity-80 transition-opacity"
-              aria-label="YouTube"
-            >
-              <svg width="32" height="34" viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="15.7968" cy="15.7968" r="15.4871" stroke="#001F3F" strokeWidth="0.619483" className="dark:stroke-white"/>
-                <path d="M25.4011 15.9726C25.4011 15.927 25.4011 15.8751 25.3991 15.815C25.397 15.647 25.3928 15.4582 25.3887 15.257C25.3721 14.6783 25.3431 14.1017 25.2974 13.5583C25.2352 12.8095 25.1439 12.1852 25.0195 11.7164C24.8882 11.2273 24.6307 10.7811 24.2729 10.4226C23.9151 10.0641 23.4695 9.80572 22.9806 9.67339C22.3936 9.51576 21.2445 9.41827 19.6267 9.35812C18.8572 9.32908 18.0337 9.31042 17.2103 9.30004C16.922 9.2959 16.6544 9.29382 16.4138 9.29175H15.804C15.5634 9.29382 15.2958 9.2959 15.0075 9.30004C14.1841 9.31042 13.3606 9.32908 12.5911 9.35812C10.9733 9.42035 9.82211 9.51783 9.2372 9.67339C8.74811 9.80539 8.30231 10.0636 7.94446 10.4222C7.58662 10.7808 7.3293 11.2271 7.1983 11.7164C7.07177 12.1852 6.98258 12.8095 6.92036 13.5583C6.87473 14.1017 6.84569 14.6783 6.8291 15.257C6.82287 15.4582 6.8208 15.647 6.81872 15.815C6.81872 15.8751 6.81665 15.927 6.81665 15.9726V16.0888C6.81665 16.1344 6.81665 16.1863 6.81872 16.2464C6.8208 16.4144 6.82495 16.6032 6.8291 16.8044C6.84569 17.383 6.87473 17.9597 6.92036 18.5031C6.98258 19.2519 7.07385 19.8762 7.1983 20.345C7.46379 21.3385 8.24367 22.1225 9.2372 22.388C9.82211 22.5456 10.9733 22.6431 12.5911 22.7033C13.3606 22.7323 14.1841 22.751 15.0075 22.7613C15.2958 22.7655 15.5634 22.7676 15.804 22.7696H16.4138C16.6544 22.7676 16.922 22.7655 17.2103 22.7613C18.0337 22.751 18.8572 22.7323 19.6267 22.7033C21.2445 22.641 22.3957 22.5436 22.9806 22.388C23.9741 22.1225 24.754 21.3405 25.0195 20.345C25.146 19.8762 25.2352 19.2519 25.2974 18.5031C25.3431 17.9597 25.3721 17.383 25.3887 16.8044C25.3949 16.6032 25.397 16.4144 25.3991 16.2464C25.3991 16.1863 25.4011 16.1344 25.4011 16.0888V15.9726ZM23.9077 16.0805C23.9077 16.124 23.9077 16.1717 23.9057 16.2277C23.9036 16.3895 23.8994 16.5679 23.8953 16.7608C23.8808 17.3125 23.8517 17.8643 23.8082 18.3766C23.7522 19.0445 23.6734 19.592 23.5759 19.9592C23.4473 20.4383 23.0698 20.8179 22.5927 20.9444C22.1571 21.0605 21.0599 21.1539 19.5686 21.2099C18.8136 21.2389 18.0005 21.2576 17.1895 21.268C16.9054 21.2721 16.642 21.2742 16.4055 21.2742H15.8123L15.0283 21.268C14.2173 21.2576 13.4063 21.2389 12.6492 21.2099C11.1579 21.1518 10.0586 21.0605 9.62506 20.9444C9.14801 20.8158 8.77051 20.4383 8.64191 19.9592C8.54443 19.592 8.46561 19.0445 8.40961 18.3766C8.36605 17.8643 8.33908 17.3125 8.32249 16.7608C8.31627 16.5679 8.31419 16.3875 8.31212 16.2277C8.31212 16.1717 8.31005 16.122 8.31005 16.0805V15.9809C8.31005 15.9374 8.31005 15.8897 8.31212 15.8337C8.31419 15.6719 8.31834 15.4935 8.32249 15.3006C8.33701 14.7489 8.36605 14.1971 8.40961 13.6848C8.46561 13.0169 8.54443 12.4694 8.64191 12.1022C8.77051 11.6231 9.14801 11.2435 9.62506 11.117C10.0606 11.0009 11.1579 10.9075 12.6492 10.8515C13.4042 10.8225 14.2173 10.8038 15.0283 10.7934C15.3124 10.7893 15.5758 10.7872 15.8123 10.7872H16.4055L17.1895 10.7934C18.0005 10.8038 18.8115 10.8225 19.5686 10.8515C21.0599 10.9096 22.1592 11.0009 22.5927 11.117C23.0698 11.2456 23.4473 11.6231 23.5759 12.1022C23.6734 12.4694 23.7522 13.0169 23.8082 13.6848C23.8517 14.1971 23.8787 14.7489 23.8953 15.3006C23.9015 15.4935 23.9036 15.6739 23.9057 15.8337C23.9057 15.8897 23.9077 15.9394 23.9077 15.9809V16.0805ZM14.2629 18.8101L19.0749 16.01L14.2629 13.2513V18.8101Z" fill="#001F3F" className="dark:fill-white"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="hover:opacity-80 transition-opacity"
-              aria-label="Facebook"
-            >
-              <svg width="32" height="34" viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="15.7968" cy="15.7968" r="15.4871" stroke="#001F3F" strokeWidth="0.619483" className="dark:stroke-white"/>
-                <path d="M13.5115 22.4815H16.4187V16.6597H19.0382L19.326 13.767H16.4187V12.3061C16.4187 12.1133 16.4953 11.9285 16.6316 11.7921C16.7679 11.6558 16.9528 11.5793 17.1456 11.5793H19.326V8.672H17.1456C16.1817 8.672 15.2574 9.05487 14.5759 9.7364C13.8944 10.4179 13.5115 11.3423 13.5115 12.3061V13.767H12.0578L11.77 16.6597H13.5115V22.4815Z" fill="#001F3F" className="dark:fill-white"/>
-              </svg>
-            </a>
-          </div>
+          {/* Social Icons - Bottom */}
+            <div className="flex items-center gap-3 lg:flex-shrink-0">
+              <a
+                href="#"
+                className="hover:opacity-70 transition-opacity"
+                aria-label="Instagram"
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="16" r="15.5" stroke="#001F3F" strokeWidth="0.62" className="dark:stroke-white"/>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M16 8C13.827 8 13.555 8.01 12.701 8.048C11.85 8.087 11.268 8.222 10.759 8.42C10.225 8.621 9.741 8.936 9.337 9.343C8.93 9.747 8.615 10.231 8.414 10.765C8.216 11.274 8.081 11.856 8.042 12.707C8.003 13.561 7.994 13.833 7.994 16.006C7.994 18.179 8.003 18.451 8.042 19.305C8.081 20.156 8.216 20.738 8.414 21.247C8.615 21.781 8.93 22.265 9.337 22.669C9.741 23.073 10.225 23.388 10.759 23.589C11.268 23.787 11.85 23.922 12.701 23.961C13.555 23.999 13.827 24.009 16 24.009C18.173 24.009 18.445 23.999 19.299 23.961C20.15 23.922 20.732 23.787 21.241 23.589C21.775 23.388 22.259 23.073 22.663 22.669C23.067 22.265 23.382 21.781 23.583 21.247C23.781 20.738 23.916 20.156 23.955 19.305C23.993 18.451 24.003 18.179 24.003 16.006C24.003 13.833 23.993 13.561 23.955 12.707C23.916 11.856 23.781 11.274 23.583 10.765C23.382 10.231 23.067 9.747 22.663 9.343C22.259 8.936 21.775 8.621 21.241 8.42C20.732 8.222 20.15 8.087 19.299 8.048C18.445 8.01 18.173 8 16 8ZM16 9.442C18.136 9.442 18.389 9.45 19.233 9.488C20.013 9.524 20.436 9.654 20.719 9.764C21.092 9.91 21.359 10.084 21.639 10.364C21.919 10.644 22.093 10.911 22.239 11.284C22.348 11.567 22.479 11.99 22.514 12.77C22.552 13.614 22.561 13.867 22.561 16.003C22.561 18.139 22.552 18.392 22.514 19.236C22.478 20.016 22.348 20.439 22.239 20.722C22.11 21.071 21.905 21.387 21.639 21.642C21.359 21.922 21.092 22.096 20.719 22.242C20.436 22.351 20.013 22.482 19.233 22.517C18.389 22.555 18.136 22.564 16 22.564C13.864 22.564 13.611 22.555 12.767 22.517C11.987 22.481 11.564 22.351 11.281 22.242C10.932 22.113 10.616 21.908 10.361 21.642C10.095 21.387 9.89 21.071 9.761 20.722C9.652 20.439 9.521 20.016 9.486 19.236C9.448 18.392 9.439 18.139 9.439 16.003C9.439 13.867 9.448 13.614 9.486 12.77C9.522 11.99 9.652 11.567 9.761 11.284C9.907 10.911 10.081 10.644 10.361 10.364C10.641 10.084 10.908 9.91 11.281 9.764C11.564 9.655 11.987 9.524 12.767 9.488C13.611 9.45 13.864 9.442 16 9.442ZM16 18.67C14.786 18.67 13.621 18.187 12.771 17.337C11.921 16.487 11.438 15.322 11.438 14.108C11.438 12.894 11.921 11.729 12.771 10.879C13.621 10.029 14.786 9.546 16 9.546C17.214 9.546 18.379 10.029 19.229 10.879C20.079 11.729 20.562 12.894 20.562 14.108C20.562 15.322 20.079 16.487 19.229 17.337C18.379 18.187 17.214 18.67 16 18.67ZM16 11.988C15.411 11.988 14.845 12.222 14.428 12.639C14.011 13.056 13.777 13.622 13.777 14.211C13.777 14.8 14.011 15.366 14.428 15.783C14.845 16.2 15.411 16.434 16 16.434C16.589 16.434 17.155 16.2 17.572 15.783C17.989 15.366 18.223 14.8 18.223 14.211C18.223 13.622 17.989 13.056 17.572 12.639C17.155 12.222 16.589 11.988 16 11.988ZM21.227 11.731C21.227 11.857 21.202 11.982 21.154 12.099C21.106 12.215 21.036 12.321 20.947 12.41C20.858 12.499 20.752 12.569 20.635 12.617C20.519 12.665 20.394 12.69 20.268 12.69C20.142 12.69 20.017 12.665 19.9 12.617C19.784 12.569 19.678 12.499 19.589 12.41C19.5 12.321 19.43 12.215 19.382 12.099C19.334 11.982 19.309 11.857 19.309 11.731C19.309 11.476 19.41 11.232 19.589 11.053C19.768 10.874 20.012 10.773 20.268 10.773C20.523 10.773 20.767 10.874 20.947 11.053C21.126 11.232 21.227 11.476 21.227 11.731Z" fill="#001F3F" className="dark:fill-white"/>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-70 transition-opacity"
+                aria-label="X (Twitter)"
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="16" r="15.5" stroke="#001F3F" strokeWidth="0.62" className="dark:stroke-white"/>
+                  <path d="M16.844 15.286L21.321 10.194H20.26L16.373 14.615L13.268 10.194H9.687L14.382 16.88L9.687 22.22H10.748L14.853 17.551L18.132 22.22H21.713L16.844 15.286ZM15.391 16.939L14.915 16.273L11.13 10.975H12.76L15.814 15.251L16.29 15.917L20.261 21.475H18.631L15.391 16.939Z" fill="#001F3F" className="dark:fill-white"/>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-70 transition-opacity"
+                aria-label="YouTube"
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="16" r="15.5" stroke="#001F3F" strokeWidth="0.62" className="dark:stroke-white"/>
+                  <path d="M25.605 16.177C25.605 16.131 25.605 16.079 25.603 16.019C25.601 15.851 25.597 15.662 25.593 15.461C25.576 14.882 25.547 14.306 25.501 13.762C25.439 13.013 25.348 12.389 25.223 11.92C25.092 11.431 24.834 10.985 24.477 10.626C24.119 10.268 23.673 10.009 23.184 9.877C22.597 9.72 21.448 9.622 19.83 9.562C19.061 9.533 18.237 9.514 17.414 9.504C17.126 9.5 16.858 9.498 16.617 9.496H16.007L15.211 9.504C14.388 9.514 13.564 9.533 12.795 9.562C11.177 9.624 10.026 9.722 9.441 9.877C8.952 10.009 8.506 10.267 8.148 10.626C7.79 10.984 7.533 11.431 7.402 11.92C7.276 12.389 7.186 13.013 7.124 13.762C7.078 14.306 7.049 14.882 7.033 15.461C7.027 15.662 7.025 15.851 7.023 16.019C7.023 16.079 7.021 16.131 7.021 16.177V16.293C7.021 16.339 7.021 16.391 7.023 16.451C7.025 16.619 7.029 16.808 7.033 17.009C7.049 17.588 7.078 18.164 7.124 18.708C7.186 19.457 7.277 20.081 7.402 20.55C7.668 21.543 8.448 22.327 9.441 22.593C10.026 22.75 11.177 22.848 12.795 22.908C13.564 22.937 14.388 22.956 15.211 22.966C15.499 22.97 15.767 22.972 16.007 22.974H16.617L17.414 22.966C18.237 22.956 19.061 22.937 19.83 22.908C21.448 22.846 22.599 22.748 23.184 22.593C24.178 22.327 24.958 21.545 25.223 20.55C25.35 20.081 25.439 19.457 25.501 18.708C25.547 18.164 25.576 17.588 25.593 17.009C25.599 16.808 25.601 16.619 25.603 16.451C25.603 16.391 25.605 16.339 25.605 16.293V16.177ZM24.112 16.285C24.112 16.328 24.112 16.376 24.11 16.432C24.108 16.594 24.104 16.772 24.099 16.965C24.085 17.517 24.056 18.069 24.012 18.581C23.956 19.249 23.877 19.796 23.78 20.163C23.651 20.642 23.274 21.022 22.797 21.149C22.361 21.265 21.264 21.358 19.773 21.414C19.018 21.443 18.205 21.462 17.394 21.472C17.11 21.476 16.846 21.478 16.61 21.478H16.016L15.232 21.472C14.421 21.462 13.61 21.443 12.853 21.414C11.362 21.356 10.263 21.265 9.829 21.149C9.352 21.02 8.974 20.642 8.846 20.163C8.748 19.796 8.669 19.249 8.614 18.581C8.57 18.069 8.543 17.517 8.527 16.965C8.521 16.772 8.519 16.592 8.517 16.432C8.517 16.376 8.515 16.326 8.515 16.285V16.185C8.515 16.142 8.515 16.094 8.517 16.038C8.519 15.876 8.523 15.698 8.527 15.505C8.541 14.953 8.57 14.401 8.614 13.889C8.669 13.221 8.748 12.674 8.846 12.307C8.974 11.828 9.352 11.448 9.829 11.321C10.265 11.205 11.362 11.112 12.853 11.056C13.608 11.027 14.421 11.008 15.232 10.998C15.516 10.994 15.78 10.992 16.016 10.992H16.61L17.394 10.998C18.205 11.008 19.018 11.027 19.773 11.056C21.264 11.114 22.363 11.205 22.797 11.321C23.274 11.45 23.651 11.828 23.78 12.307C23.877 12.674 23.956 13.221 24.012 13.889C24.056 14.401 24.083 14.953 24.099 15.505C24.105 15.698 24.108 15.878 24.11 16.038C24.11 16.094 24.112 16.144 24.112 16.185V16.285ZM14.467 19.014L19.279 16.214L14.467 13.455V19.014Z" fill="#001F3F" className="dark:fill-white"/>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-70 transition-opacity"
+                aria-label="Facebook"
+              >
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="16" r="15.5" stroke="#001F3F" strokeWidth="0.62" className="dark:stroke-white"/>
+                  <path d="M13.715 22.686H16.622V16.864H19.242L19.53 13.971H16.622V12.51C16.622 12.317 16.699 12.132 16.835 11.996C16.971 11.86 17.156 11.783 17.349 11.783H19.53V8.876H17.349C16.385 8.876 15.461 9.259 14.779 9.941C14.098 10.622 13.715 11.546 13.715 12.51V13.971H12.261L11.973 16.864H13.715V22.686Z" fill="#001F3F" className="dark:fill-white"/>
+                </svg>
+              </a>
+            </div>
         </div>
+      </div>
     </footer>
   );
 }

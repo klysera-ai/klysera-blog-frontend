@@ -119,12 +119,15 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
           <button
             onClick={loadMore}
             className="px-8 py-3 rounded-none 
-            transition-colors border-none bg-[#F0F4F8] text-[#001F3F]
-             dark:bg-[#131414] dark:text-[#FFFFFF]"
+            transition-colors border-[0.98px] border-[#CFDDE829] dark:border-[#CFDDE829] 
+            rounded-[2px] bg-[#F0F4F8] text-[#001F3F]
+             dark:bg-transparent dark:text-[#FEFEFE]
+             hover:bg-[#E1E8EE] dark:hover:bg-[#0557AD]"
+             
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
-              fontSize: '14px',
-              fontWeight: '200',
+              fontSize: '16px',
+              fontWeight: '400',
             }}
           >
             Load More

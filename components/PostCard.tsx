@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Post } from '@/types/wordpress';
-import { formatDate, stripHtml, truncate, getPostUrl } from '@/lib/utils';
+import { formatDate, stripHtml, truncate, getPostUrl, getReadingTime } from '@/lib/utils';
 
 interface PostCardProps {
   post: Post;
@@ -101,65 +101,103 @@ export default function PostCard({
   }
 
   const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
+  const readingTime = getReadingTime(post.content);
+  
   return (
-    <article style={{ padding: '15px', borderWidth: '1px' }} className="group flex flex-col justify-between  bg-white dark:bg-black rounded-none overflow-hidden border border-[#DCE5EF] dark:border-[#A9A9A94D]">
+    <article className="group flex flex-col bg-white dark:bg-[#001F3F]">
+      {/* Featured Image */}
       {post.featuredImage && (
         <Link href={postUrl}>
-          <div className="relative aspect-square w-full overflow-hidden">
+          <div 
+            className="relative w-full overflow-hidden border-[0.98px] border-[#B1B9C8] dark:border-[#0557AD] p-[12px]"
+            style={{
+              width: '100%',
+              maxWidth: '352px',
+              height: 'auto',
+              aspectRatio: '1/1',
+            }}
+          >
+            <div className="border-[0.98px] border-[#B1B9C8] dark:border-[#0557AD]" style={{
+              width: '100%',
+              maxWidth: '340px',
+              height: 'auto',
+              aspectRatio: '1/1',
+            }}>
             <Image
               src={post.featuredImage.url}
               alt={post.featuredImage.alt}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              width={340}
+              height={340}
+              className="object-cover w-full h-full"
             />
+            </div>
           </div>
         </Link>
       )}
 
-          
-      <div className='flex flex-col flex-1 justify-between min-h-[80px]'>
+      {/* Content */}
+      <div className="flex flex-col gap-3 pt-4">
+        {/* Reading Time */}
+        <span 
+          className="text-[#444E60] dark:text-[#F0F4F8]"
+          style={{
+            fontFamily: 'General Sans, sans-serif',
+            fontSize: '12px',
+            fontWeight: '400',
+            lineHeight: '20px',
+          }}
+        >
+          {readingTime} mins read
+        </span>
+
         {/* Title */}
         <Link href={postUrl}>
-          <p 
-            className="py-[15px] text-[#001F3F] dark:text-white transition-colors"
+          <h3 
+            className="text-[#001F3F] dark:text-[#F0F4F8] transition-colors"
             style={{
               fontFamily: 'Acid Grotesk, sans-serif',
-              fontSize: '16px',
-              fontWeight: '200',
-              lineHeight: '1.5',
+              fontSize: '20px',
+              fontWeight: '400',
+              lineHeight: '32px',
+              letterSpacing: '-0.02em',
             }}
           >
             {post.title}
-          </p>
+          </h3>
         </Link>
 
         {/* Category & Date */}
-        <div className="flex items-center justify-between">
-          {/* Category Label - Bottom Left */}
+        <div className="flex items-center gap-2">
+          {/* Category */}
           {post.categories.length > 0 && (
-            <span 
-            className='text-[#001F3F] dark:text-white   transition-colors'
-              style={{
-                fontFamily: 'General Sans, sans-serif',
-                fontSize: '14px',
-                fontWeight: '400',
+            <>
+              <span 
+                className="text-[#68778F] dark:text-[#CFDDE8]"
+                style={{
+                  fontFamily: 'General Sans, sans-serif',
+                  fontSize: '12px',
+                  fontWeight: '400',
+                  lineHeight: '20px',
                 }}
-            >
-              {post.categories[0].name}
-            </span>
+              >
+                {post.categories[0].name}
+              </span>
+              <span className="text-[#68778F] dark:text-[#CFDDE8]">|</span>
+            </>
           )}
 
-          {/* Date - Bottom Right */}
+          {/* Date */}
           <time 
-          className='text-[#A9A9A9] dark:text-[#A9A9A9]  transition-colors'
+            className="text-[#68778F] dark:text-[#CFDDE8]"
             dateTime={post.date}
             style={{
               fontFamily: 'General Sans, sans-serif',
-              fontSize: '14px',
+              fontSize: '12px',
               fontWeight: '400',
+              lineHeight: '20px',
             }}
           >
-            {formatDate(post.date, 'd MMM yyyy')}
+            {formatDate(post.date, 'd MMM, yyyy')}
           </time>
         </div>
       </div>

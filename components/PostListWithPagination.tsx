@@ -10,7 +10,7 @@ interface PostListWithPaginationProps {
 }
 
 export default function PostListWithPagination({ allPosts }: PostListWithPaginationProps) {
-  const [visibleCount, setVisibleCount] = useState(16);
+  const [visibleCount, setVisibleCount] = useState(15);
   const { searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange } = useSearchFilter();
 
   // Filter posts based on search query, categories, and authors
@@ -64,12 +64,12 @@ export default function PostListWithPagination({ allPosts }: PostListWithPaginat
   const hasMore = visibleCount < filteredPosts.length;
 
   const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 16, filteredPosts.length));
+    setVisibleCount(prev => Math.min(prev + 15, filteredPosts.length));
   };
 
   // Reset visible count when search changes
   useEffect(() => {
-    setVisibleCount(16);
+    setVisibleCount(15);
   }, [searchQuery, selectedCategories, selectedAuthors, dateSort, customDateRange]);
 
   if (filteredPosts.length === 0) {

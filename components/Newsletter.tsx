@@ -39,7 +39,7 @@ export default function Newsletter() {
             <h2 
               className="text-[#001F3F] dark:text-white font-['Acid_Grotesk'] text-[24px] lg:text-[36px] font-extralight leading-[36px] lg:leading-[56px]"
             >
-              Give us your mail and be the first to Know when there's an AI apocalypse.
+              Give us your mail and be the first to Know when there&apos;s an AI apocalypse.
             </h2>
         </div>  
 
@@ -54,7 +54,7 @@ export default function Newsletter() {
             <p 
               className="text-[#68778F] dark:text-[#68778F] mb-[20px] sm:mb-[40px] font-['General_Sans'] text-sm sm:text-base font-normal leading-5 sm:leading-6"
             >
-              Strategic partnership combines ElevenLabs' Agents platform with Deloitte's industry expertise to help enterprises deploy omnichannel agents
+              Strategic partnership combines ElevenLabs&apos; Agents platform with Deloitte&apos;s industry expertise to help enterprises deploy omnichannel agents
             </p>
 
             {/* Form */}

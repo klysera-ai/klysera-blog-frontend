@@ -20,7 +20,7 @@ const tabs = [
 export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
   const [localSearch, setLocalSearch] = useState('');
   const [activeTab, setActiveTab] = useState('all');
-  const [isSearchExpanded, setIsSearchExpanded] = useState(true);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const {searchQuery, setSearchQuery, selectedCategories, setSelectedCategories } = useSearchFilter();
   const { viewMode, toggleViewMode, mounted } = useViewMode();
 
@@ -113,9 +113,8 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                   value={localSearch}
                   onChange={(e) => setLocalSearch(e.target.value)}
                   onBlur={() => {
-                    // if (!localSearch) setIsSearchExpanded(false);
+                    if (!localSearch) setIsSearchExpanded(false);
                   }}
-                  autoFocus
                   className="w-full pl-9 pr-3 py-2  text-[#001F3F] dark:text-white placeholder:text-[#68778F] text-sm font-['General_Sans'] border-none focus:outline-none focus:ring-1 focus:ring-[#B1B9C8] dark:focus:ring-[#0557AD] rounded bg-transparent"
                 />
               </div>

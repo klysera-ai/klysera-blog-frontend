@@ -95,7 +95,7 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 </svg>
               </button>
             ) : (
-              <div className="relative flex-1 border border-[#B1B9C8] dark:border-[#02356B] rounded-[2px]">
+              <div className="relative max-w-[200px] border border-[#B1B9C8] dark:border-[#02356B] rounded-[2px]">
                 <svg
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#68778F]"
                   width="16"
@@ -109,6 +109,8 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
                 </svg>
                 <input
                   type="text"
+                  name="search"
+                  id="mobile-search"
                   placeholder="Search"
                   value={localSearch}
                   onChange={(e) => setLocalSearch(e.target.value)}
@@ -193,6 +195,8 @@ export default function SearchToolbar({ posts = [] }: SearchToolbarProps) {
               </svg>
               <input
                 type="text"
+                name="search"
+                id="desktop-search"
                 placeholder="Search"
                 value={localSearch}
                 onChange={(e) => setLocalSearch(e.target.value)}

@@ -1,5 +1,37 @@
 
 /* Custom Font Faces */
+/* General Sans - Extralight */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Extralight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+/* General Sans - Extralight Italic */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-ExtralightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+/* General Sans - Light */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+/* General Sans - Light Italic */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
 /* General Sans - Regular */
 @font-face {
   font-family: 'General Sans';
@@ -16,14 +48,6 @@
   font-style: italic;
   font-display: swap;
 }
-/* General Sans - Light */
-@font-face {
-  font-family: 'General Sans';
-  src: url('/fonts/GeneralSans-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
 /* General Sans - Medium */
 @font-face {
   font-family: 'General Sans';
@@ -32,12 +56,28 @@
   font-style: normal;
   font-display: swap;
 }
+/* General Sans - Medium Italic */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
 /* General Sans - Semibold */
 @font-face {
   font-family: 'General Sans';
   src: url('/fonts/GeneralSans-Semibold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+/* General Sans - Semibold Italic */
+@font-face {
+  font-family: 'General Sans';
+  src: url('/fonts/GeneralSans-SemiboldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
   font-display: swap;
 }
 /* General Sans - Bold */
@@ -57,53 +97,61 @@
   font-display: swap;
 }
 
-/* Acid Grotesk - Trial Fonts */
+/* Acid Grotesk - Complete Font Family */
+/* Acid Grotesk - Thin */
+@font-face {
+  font-family: 'Acid Grotesk';
+  src: url('/fonts/acid-grotesk-thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+/* Acid Grotesk - Extralight */
+@font-face {
+  font-family: 'Acid Grotesk';
+  src: url('/fonts/acid-grotesk-extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
 /* Acid Grotesk - Light */
 @font-face {
   font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Light-TRIAL.otf') format('opentype');
+  src: url('/fonts/acid-grotesk-light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
-/* Acid Grotesk - Normal (Regular 400) */
+/* Acid Grotesk - Normal (Regular weight) */
 @font-face {
   font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Normal-TRIAL.otf') format('opentype');
+  src: url('/fonts/acid-grotesk-normal.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
-/* Acid Grotesk - Normal Italic */
+/* Acid Grotesk - Medium */
 @font-face {
   font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Norma-Italic-TRIAL.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-/* Acid Grotesk - Regular (alternative 400) */
-@font-face {
-  font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Regular-TRIAL.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-/* Acid Grotesk - Regular Italic */
-@font-face {
-  font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Regular-Italic-TRIAL.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-/* Acid Grotesk - Medium Italic */
-@font-face {
-  font-family: 'Acid Grotesk';
-  src: url('/fonts/FFF-AcidGrotesk-Medium-Italic-TRIAL.otf') format('opentype');
+  src: url('/fonts/acid-grotesk-medium.otf') format('opentype');
   font-weight: 500;
-  font-style: italic;
+  font-style: normal;
+  font-display: swap;
+}
+/* Acid Grotesk - Regular (Semibold weight) */
+@font-face {
+  font-family: 'Acid Grotesk';
+  src: url('/fonts/acid-grotesk-regular.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+/* Acid Grotesk - Bold */
+@font-face {
+  font-family: 'Acid Grotesk';
+  src: url('/fonts/acid-grotesk-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
 

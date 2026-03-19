@@ -24,6 +24,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'general-sans': ['General Sans', 'sans-serif'],
+        'acid-grotesk': ['Acid Grotesk', 'sans-serif'],
+      },
       borderRadius: {
         'none': '0',
         'sm': '0',

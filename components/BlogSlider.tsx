@@ -67,7 +67,7 @@ export default function BlogSlider({ posts }: BlogSliderProps) {
           <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
             <span className="font-['General_Sans'] font-semibold text-xs leading-4 
             text-[#444E60] dark:text-[#FEFEFE] border-r-[0.5px] border-[#B1B9C8] dark:border-[#0557AD] pr-4">
-              {getReadingTime(currentPost.content)}
+              {`${getReadingTime(currentPost.content)} mins read`}
             </span>
             <span className="font-['General_Sans'] font-normal text-xs 
             leading-5 text-[#68778F] dark:text-[#CFDDE8] border-r-[0.5px] border-[#B1B9C8] dark:border-[#0557AD] pr-4">

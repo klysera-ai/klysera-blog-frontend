@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { getPostBySlug, getPostSlugsByCategorySlug } from '@/lib/wordpress';
+import { getPostBySlug, getPostSlugsByCategorySlug, getPostsByCategorySlug } from '@/lib/wordpress';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import ShareButtons from '@/components/ShareButtons';
 import { getDummyPostBySlug } from '@/lib/dummy-posts';
@@ -80,11 +80,24 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
+  // Fetch related posts from the same category
+  let relatedPosts: any[] = [];
+  if (post.categories && post.categories.length > 0) {
+    const categorySlug = post.categories[0].slug;
+    const relatedResponse = await getPostsByCategorySlug(categorySlug, { perPage: 4 });
+    
+    // Filter out current post and limit to 3
+    relatedPosts = relatedResponse.data
+      .filter((p) => p.id !== post.id)
+      .slice(0, 3);
+  }
+
   return (
     <PostPageClient 
       post={post}
       parentPage="Research"
       parentHref="/research"
+      relatedPosts={relatedPosts}
     />
   );
 }

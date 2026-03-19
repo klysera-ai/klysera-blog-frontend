@@ -42,44 +42,46 @@ export default function PostCard({
 
   if (viewMode === 'list') {
     const postUrl = getPostUrl(post.slug, post.categories[0]?.slug);
+    const readingTime = getReadingTime(post.content);
+    
     return (
       <article 
-        className="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800"
-        style={{ paddingBottom: '20px' }}
+        className="bg-white dark:bg-[#001F3F] border-b border-[#E5E5E7] dark:border-[#CFDDE829] py-6 transition-colors"
         onMouseEnter={() => onHover?.(post.id)}
         onMouseLeave={() => onHover?.(null)}
       >
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_200px_150px] gap-4 md:gap-8">
+        {/* Desktop Layout - Grid with columns */}
+        <div className="hidden md:grid grid-cols-[1fr_120px_140px_140px] gap-8 items-center">
 
           {/* Title */}
           <Link href={postUrl} className="flex-1">
             <h2 
-              className={`transition-colors ${getListItemClasses()}`}
+              className={`transition-colors hover:opacity-70 ${getListItemClasses()}`}
               style={{
                 fontFamily: 'Acid Grotesk, sans-serif',
                 fontSize: '22px',
                 fontWeight: '200',
-                lineHeight: '1.3',
+                lineHeight: '28px',
+                letterSpacing: '-0.02em',
               }}
             >
               {post.title}
             </h2>
           </Link>
 
-          {/* Category */}
-          {post.categories.length > 0 && (
-            <span 
-              className={`${getListItemClasses()}`}
-              style={{
-                fontFamily: 'Acid Grotesk, sans-serif',
-                fontSize: '14px',
-                fontWeight: '200',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {post.categories[0].name}
-            </span>
-          )}
+          {/* Read Time */}
+          <span 
+            className={`${getListItemClasses()}`}
+            style={{
+              fontFamily: 'Acid Grotesk, sans-serif',
+              fontSize: '14px',
+              fontWeight: '200',
+              lineHeight: '20px',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {readingTime} mins read
+          </span>
 
           {/* Date */}
           <time 
@@ -89,12 +91,97 @@ export default function PostCard({
               fontFamily: 'Acid Grotesk, sans-serif',
               fontSize: '14px',
               fontWeight: '200',
+              lineHeight: '20px',
               whiteSpace: 'nowrap',
-              textAlign:'left',
             }}
           >
-            {formatDate(post.date)}
+            {formatDate(post.date, 'd MMM, yyyy')}
           </time>
+
+          {/* Category */}
+          {post.categories.length > 0 && (
+            <span 
+              className={`${getListItemClasses()}`}
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '14px',
+                fontWeight: '200',
+                lineHeight: '20px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {post.categories[0].name}
+            </span>
+          )}
+        </div>
+
+        {/* Mobile Layout - Stacked */}
+        <div className="md:hidden flex flex-col gap-3">
+          {/* Title */}
+          <Link href={postUrl}>
+            <h2 
+              className={`transition-colors hover:opacity-70 ${getListItemClasses()}`}
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '18px',
+                fontWeight: '200',
+                lineHeight: '24px',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {post.title}
+            </h2>
+          </Link>
+
+          {/* Meta Info Row */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Read Time */}
+            <span 
+              className={`${getListItemClasses()}`}
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '12px',
+                fontWeight: '200',
+                lineHeight: '16px',
+              }}
+            >
+              {readingTime} mins read
+            </span>
+
+            <span className={`${getListItemClasses()}`}>|</span>
+
+            {/* Date */}
+            <time 
+              dateTime={post.date}
+              className={getListItemClasses()}
+              style={{
+                fontFamily: 'Acid Grotesk, sans-serif',
+                fontSize: '12px',
+                fontWeight: '200',
+                lineHeight: '16px',
+              }}
+            >
+              {formatDate(post.date, 'd MMM, yyyy')}
+            </time>
+
+            {/* Category */}
+            {post.categories.length > 0 && (
+              <>
+                <span className={`${getListItemClasses()}`}>|</span>
+                <span 
+                  className={`${getListItemClasses()}`}
+                  style={{
+                    fontFamily: 'Acid Grotesk, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: '200',
+                    lineHeight: '16px',
+                  }}
+                >
+                  {post.categories[0].name}
+                </span>
+              </>
+            )}
+          </div>
         </div>
       </article>
     );

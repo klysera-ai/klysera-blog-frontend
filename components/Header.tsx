@@ -36,10 +36,10 @@ export default function Header() {
 
           {/* Get Newsletters Button */}
           <button
-            className="flex flex-row justify-center items-center px-4 py-2 border-[0.5px] border-[#B1B9C8] dark:border-[#0557AD] rounded bg-transparent cursor-pointer"
+            className="group flex flex-row justify-center items-center px-4 py-2 border-[0.5px] border-[#B1B9C8] dark:border-[#0557AD] rounded bg-transparent hover:bg-[#F0F4F8] dark:hover:bg-[#02356B] cursor-pointer transition-colors"
           >
             <span
-              className="font-['General_Sans'] font-normal text-base leading-6 text-center text-[#001F3F] dark:text-[#FEFEFE]"
+              className="font-['General_Sans'] font-normal text-base leading-6 text-center text-[#001F3F] dark:text-[#FEFEFE] group-hover:text-[#001F3F] dark:group-hover:text-[#F0F4F8] transition-colors"
             >
               Get Newsletters
             </span>

@@ -27,17 +27,64 @@ export default function PostGrid({ posts }: PostGridProps) {
 
   if (viewMode === 'list') {
     return (
-      <div className="space-y-6">
-        {posts.map((post) => (
-          <PostCard 
-            key={post.id} 
-            post={post} 
-            viewMode="list"
-            hoveredPostId={hoveredPostId}
-            onHover={setHoveredPostId}
-            theme={theme}
-          />
-        ))}
+      <div className="w-full">
+        {/* Table Header - Hidden on mobile */}
+        <div className="hidden md:grid grid-cols-[1fr_120px_140px_140px] gap-8 pb-4 mb-6 border-b border-[#E5E5E7] dark:border-[#38383A]">
+          <div></div> {/* Empty space for title column */}
+          <div 
+            className="text-[#68778F] dark:text-[#98989D]"
+            style={{
+              fontFamily: 'General Sans, sans-serif',
+              fontSize: '11px',
+              fontWeight: '400',
+              lineHeight: '20px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            READ TIME
+          </div>
+          <div 
+            className="text-[#68778F] dark:text-[#98989D]"
+            style={{
+              fontFamily: 'General Sans, sans-serif',
+              fontSize: '11px',
+              fontWeight: '400',
+              lineHeight: '20px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            DATE
+          </div>
+          <div 
+            className="text-[#68778F] dark:text-[#98989D]"
+            style={{
+              fontFamily: 'General Sans, sans-serif',
+              fontSize: '11px',
+              fontWeight: '400',
+              lineHeight: '20px',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            CATEGORY
+          </div>
+        </div>
+
+        {/* Post List */}
+        <div>
+          {posts.map((post) => (
+            <PostCard 
+              key={post.id} 
+              post={post} 
+              viewMode="list"
+              hoveredPostId={hoveredPostId}
+              onHover={setHoveredPostId}
+              theme={theme}
+            />
+          ))}
+        </div>
       </div>
     );
   }

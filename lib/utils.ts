@@ -50,7 +50,7 @@ export function getReadingTime(content: string): string {
   const text = stripHtml(content);
   const wordCount = text.split(/\s+/).length;
   const minutes = Math.ceil(wordCount / wordsPerMinute);
-  return `${minutes} min read`;
+  return `${minutes}`;
 }
 
 /**
